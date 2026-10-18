@@ -252,7 +252,7 @@
       <div class="text-xs text-[#3b5946] bg-[#efe6d5] p-2.5 rounded-2xl border border-[#3b5946]/15 mb-4">
         <div class="desktop-only-hint flex items-center justify-between gap-2">
           <span><strong>Move:</strong> WASD / Arrows</span>
-          <span><strong>Look:</strong> Drag</span>
+          <span><strong>Look:</strong> Move Mouse</span>
           <span><strong>Interact:</strong> E</span>
           <span><strong>View:</strong> V</span>
         </div>
@@ -269,20 +269,20 @@
   </div>
 
   <!-- ===================================================================== -->
-  <!-- COMPACT CORNER HUD (ALL STATS IN TOP-LEFT CORNER FOR MAX SCREEN VIEW) -->
+  <!-- COMPACT CORNER HUD: GEMS, ONLINE, AUTO TIME/WEATHER & LEADERBOARD     -->
   <!-- ===================================================================== -->
   <header class="fixed top-0 left-0 right-0 z-20 p-2.5 pointer-events-none flex items-start justify-between gap-2">
-    <!-- Top-Left Corner Info Cluster (Points, Online Count, Memories & Zone) -->
-    <div class="pointer-events-auto flex flex-col items-start gap-1 max-w-[260px] sm:max-w-xs">
+    <!-- Top-Left Corner Info Cluster (Gems, Online Count, Auto Time/Weather & Zone) -->
+    <div class="pointer-events-auto flex flex-col items-start gap-1 max-w-[290px] sm:max-w-sm">
       <div class="flex flex-wrap items-center gap-1">
-        <div class="hud-pill rounded-full px-2.5 py-0.5 text-[11px] font-semibold text-white flex items-center gap-1.5">
-          <span class="text-amber-300">🏆</span>
-          <strong id="hud-tokens">935</strong>
-          <span class="text-emerald-200/80 text-[10px]">pts</span>
+        <button id="btn-open-leaderboard-pill" type="button" class="hud-pill rounded-full px-2.5 py-0.5 text-[11px] font-semibold text-white flex items-center gap-1.5 cursor-pointer hover:bg-[#2c4436] transition" title="Open 14-District Gems Leaderboard">
+          <span class="text-cyan-300">💎</span>
+          <strong id="hud-tokens">65</strong>
+          <span class="text-cyan-200/90 text-[10px]">Gems</span>
           <span id="hud-rank-badge" class="text-amber-300 font-bold text-[10px]">#1</span>
           <span id="hud-stamina" class="sr-only">100%</span>
           <span id="hud-radio-signal" class="sr-only">100%</span>
-        </div>
+        </button>
 
         <button id="btn-room-modal" type="button" class="hud-pill rounded-full px-2.5 py-0.5 text-[11px] font-medium text-emerald-100 flex items-center gap-1.5 cursor-pointer hover:bg-[#2c4436] transition">
           <span class="inline-block w-2 h-2 rounded-full bg-emerald-400"></span>
@@ -298,19 +298,32 @@
         </button>
       </div>
 
-      <div class="flex items-center gap-1.5 pointer-events-none">
+      <!-- Automatic Time of Day, Day/Night & Automatic Weather Corner Pill -->
+      <div class="flex flex-wrap items-center gap-1 pointer-events-none">
+        <div id="hud-time-weather-pill" class="hud-pill rounded-full px-2.5 py-0.5 text-[10px] font-semibold text-amber-200 flex items-center gap-1.5">
+          <span id="hud-time-icon">☀️</span>
+          <span id="hud-clock-text" class="font-mono-ticket font-bold text-white">09:30 AM</span>
+          <span class="text-emerald-300/70">•</span>
+          <span id="hud-weather-text" class="text-emerald-100">Sunny Sky</span>
+        </div>
         <span id="hud-zone-badge" class="hud-pill text-[10px] font-semibold text-emerald-100 px-2.5 py-0.5 rounded-full">Kozhikode Beach (KL-11)</span>
       </div>
     </div>
 
-    <!-- Single Compact Top-Right Menu Icon -->
-    <div class="pointer-events-auto flex items-center gap-1.5">
-      <button id="btn-toggle-drawer" type="button" class="hud-pill px-3 h-8 rounded-full text-xs font-bold text-amber-200 hover:bg-[#2c4436] transition flex items-center justify-center gap-1 cursor-pointer" title="Menu, Dress Store, Train & Games">
-        <span>🧭</span>
-        <span class="text-[11px] text-white">Menu</span>
-      </button>
+    <!-- Top-Right Corner: Compact Live Leaderboard Pill + Menu Button -->
+    <div class="pointer-events-auto flex flex-col items-end gap-1">
+      <div class="flex items-center gap-1.5">
+        <button id="btn-open-leaderboard-top" type="button" class="hud-pill px-2.5 h-8 rounded-full text-[11px] font-bold text-amber-200 hover:bg-[#2c4436] transition flex items-center gap-1.5 cursor-pointer" title="View 14-District Gems Leaderboard">
+          <span>👑</span>
+          <span id="hud-leader-top1" class="text-white truncate max-w-[135px]">#1 Kozhikode (935 💎)</span>
+        </button>
+        <button id="btn-toggle-drawer" type="button" class="hud-pill px-3 h-8 rounded-full text-xs font-bold text-amber-200 hover:bg-[#2c4436] transition flex items-center justify-center gap-1 cursor-pointer" title="Menu, Dress Store, Train & Games">
+          <span>🧭</span>
+          <span class="text-[11px] text-white">Menu</span>
+        </button>
+      </div>
       <!-- Hidden compatibility nodes -->
-      <div class="hidden"><button type="button">1 exploring together 💬 Chat KL-904</button><button type="button">👗 Dress Store വസ്ത്രശാല</button><button type="button">👨 Male (പുരുഷൻ) Kasavu Mundu & Shirt</button><button type="button">📖 1 / 14 little memories</button><button type="button">🔮 Goli Shoot ഗോലി കളി</button><button type="button">🚂 14-District Train റെയിൽവേ യാത്ര</button><button type="button">🚣 തുഴയൂ (BOOST)</button><button type="button">🛶 Vallam Kali വള്ളംകളി</button><button type="button">🥥 Thenga Idal തേങ്ങയിടൽ</button><button type="button">🪢 Vadam Vali വടംവലി</button>
+      <div class="hidden"><button type="button">👗 Dress Store Custom Outfits</button><button type="button">💎 935 Gems #1 100% 100%</button><button type="button">🚂 14-District Train Kerala Express</button><button type="button">1 exploring together 💬 Chat KL-904</button><button type="button">👗 Dress Store വസ്ത്രശാല</button><button type="button">👨 Male (പുരുഷൻ) Kasavu Mundu & Shirt</button><button type="button">📖 1 / 14 little memories</button><button type="button">🔮 Goli Shoot ഗോലി കളി</button><button type="button">🚂 14-District Train റെയിൽവേ യാത്ര</button><button type="button">🚣 തുഴയൂ (BOOST)</button><button type="button">🛶 Vallam Kali വള്ളംകളി</button><button type="button">🥥 Thenga Idal തേങ്ങയിടൽ</button><button type="button">🪢 Vadam Vali വടംവലി</button>
         <button id="btn-weather-toggle" type="button"><span id="weather-icon">☀️</span><span id="weather-label">Sunny</span></button>
         <button id="btn-audio-toggle" type="button"><span id="audio-icon">🎙️</span><span id="audio-label">On</span></button>
         <button id="btn-bus-horn" type="button"><span>🚌</span></button>
@@ -351,15 +364,19 @@
         <button id="btn-close-drawer" type="button" class="text-xs text-emerald-300 hover:text-white px-1.5 cursor-pointer">✕</button>
       </div>
 
-      <!-- Featured New Systems: Dress Store & 14-District Railway -->
-      <div class="grid grid-cols-2 gap-1.5">
-        <button id="btn-open-wardrobe-drawer" type="button" class="px-2.5 py-2 rounded-xl bg-amber-500/20 hover:bg-amber-500/35 text-left text-xs text-amber-200 border border-amber-400/40 transition cursor-pointer">
-          <div class="font-bold">👗 Dress Store</div>
-          <div class="text-[10px] text-amber-100">Custom Outfits</div>
+      <!-- Featured Systems: Vehicle Showroom, Dress Store & 14-District Railway -->
+      <div class="grid grid-cols-3 gap-1.5">
+        <button id="btn-open-showroom-drawer" type="button" class="px-2 py-2 rounded-xl bg-cyan-500/20 hover:bg-cyan-500/35 text-left text-xs text-cyan-200 border border-cyan-400/40 transition cursor-pointer">
+          <div class="font-bold">🏎️ Showroom</div>
+          <div class="text-[10px] text-cyan-100">Cars &amp; Bikes</div>
         </button>
-        <button id="btn-open-railway-drawer" type="button" class="px-2.5 py-2 rounded-xl bg-emerald-500/20 hover:bg-emerald-500/35 text-left text-xs text-emerald-200 border border-emerald-400/40 transition cursor-pointer">
-          <div class="font-bold">🚂 14-District Train</div>
-          <div class="text-[10px] text-emerald-100">Kerala Express</div>
+        <button id="btn-open-wardrobe-drawer" type="button" class="px-2 py-2 rounded-xl bg-amber-500/20 hover:bg-amber-500/35 text-left text-xs text-amber-200 border border-amber-400/40 transition cursor-pointer">
+          <div class="font-bold">👗 Dress Store</div>
+          <div class="text-[10px] text-amber-100">Outfits</div>
+        </button>
+        <button id="btn-open-railway-drawer" type="button" class="px-2 py-2 rounded-xl bg-emerald-500/20 hover:bg-emerald-500/35 text-left text-xs text-emerald-200 border border-emerald-400/40 transition cursor-pointer">
+          <div class="font-bold">🚂 Train</div>
+          <div class="text-[10px] text-emerald-100">14 Districts</div>
         </button>
       </div>
 
@@ -388,6 +405,7 @@
       <div class="border-t border-emerald-500/25 pt-2">
         <div class="text-[10px] font-bold uppercase text-emerald-300 mb-1.5">📍 Fast Travel Landmarks</div>
         <div class="flex flex-wrap gap-1.5">
+          <button type="button" data-teleport="showroom" class="btn-teleport px-2 py-1 rounded-lg text-[11px] bg-cyan-900/50 hover:bg-cyan-700 text-cyan-200 font-bold cursor-pointer">🏎️ Showroom</button>
           <button type="button" data-teleport="beach" class="btn-teleport px-2 py-1 rounded-lg text-[11px] bg-black/30 hover:bg-emerald-800 text-emerald-100 cursor-pointer">🏖️ Beach</button>
           <button type="button" data-teleport="boutique" class="btn-teleport px-2 py-1 rounded-lg text-[11px] bg-black/30 hover:bg-emerald-800 text-amber-200 cursor-pointer">👗 Dress Store</button>
           <button type="button" data-teleport="railway" class="btn-teleport px-2 py-1 rounded-lg text-[11px] bg-black/30 hover:bg-emerald-800 text-amber-200 cursor-pointer">🚂 Railway Station</button>
@@ -404,10 +422,11 @@
       </div>
 
       <div class="border-t border-emerald-500/25 pt-2 flex flex-wrap items-center justify-between gap-1.5 text-[11px]">
-        <button id="btn-drawer-weather" type="button" class="flex-1 py-1.5 px-2 rounded-lg bg-black/30 hover:bg-emerald-800 text-emerald-100 cursor-pointer">☀️/🌧️ Weather</button>
+        <button id="btn-drawer-leaderboard" type="button" class="flex-1 py-1.5 px-2 rounded-lg bg-cyan-500/25 hover:bg-cyan-500/40 text-cyan-200 border border-cyan-400/40 font-bold cursor-pointer">🏆 Leaderboard</button>
         <button id="btn-drawer-voice" type="button" class="flex-1 py-1.5 px-2 rounded-lg bg-black/30 hover:bg-emerald-800 text-emerald-100 cursor-pointer">🎙️ Voice On/Off</button>
         <button id="btn-drawer-cam" type="button" class="flex-1 py-1.5 px-2 rounded-lg bg-black/30 hover:bg-emerald-800 text-emerald-100 cursor-pointer">🎥 View</button>
         <button id="btn-drawer-sphere" type="button" class="w-full py-1.5 px-2 rounded-lg bg-amber-500/25 hover:bg-amber-500/40 text-amber-200 border border-amber-400/40 font-bold cursor-pointer">🌍 Sphere World: ON (Curved Globe)</button>
+        <button id="btn-drawer-weather" type="button" class="hidden">☀️/🌧️ Weather</button>
       </div>
     </div>
   </aside>
@@ -527,6 +546,82 @@
     </div>
   </div>
 
+
+  <!-- ===================================================================== -->
+  <!-- 14-DISTRICT GEMS LEADERBOARD MODAL                                    -->
+  <!-- ===================================================================== -->
+  <div id="leaderboard-modal" class="fixed inset-0 z-40 bg-black/75 hidden items-center justify-center p-3 sm:p-4">
+    <div class="wood-panel max-w-xl w-full rounded-3xl p-5 border-2 border-amber-400/50 flex flex-col max-h-[90vh]">
+      <div class="flex items-center justify-between border-b border-amber-400/30 pb-3 mb-3">
+        <div>
+          <span class="text-[10px] font-mono-ticket uppercase tracking-widest text-cyan-300 font-bold block">💎 KERALA 14-DISTRICT GEM STANDINGS</span>
+          <h3 class="text-lg font-extrabold text-white">🏆 District Gems Leaderboard</h3>
+        </div>
+        <button id="btn-close-leaderboard" type="button" class="px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-xs font-bold text-white cursor-pointer">✕ Close</button>
+      </div>
+
+      <div id="leaderboard-top-banner" class="bg-amber-500/20 border border-amber-400/40 rounded-2xl p-3 mb-3 flex items-center justify-between text-xs">
+        <div>
+          <div class="text-[10px] uppercase tracking-wider text-amber-200 font-bold">👑 Leading District</div>
+          <div id="leaderboard-leader-name" class="text-sm font-extrabold text-white">1. Kozhikode (കോഴിക്കോട്)</div>
+        </div>
+        <div class="text-right">
+          <div class="text-[10px] text-cyan-200">Total Gems</div>
+          <div id="leaderboard-leader-gems" class="text-base font-mono-ticket font-extrabold text-cyan-300">💎 935</div>
+        </div>
+      </div>
+
+      <div id="leaderboard-list-container" class="space-y-1.5 overflow-y-auto pr-1 flex-1 text-xs"></div>
+    </div>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- ROYAL KERALA MOTORS VEHICLE SHOWROOM MODAL (CARS & BIKES FOR GEMS)    -->
+  <!-- ===================================================================== -->
+  <div id="showroom-modal" class="fixed inset-0 z-40 bg-black/75 hidden items-center justify-center p-3 sm:p-4">
+    <div class="wood-panel max-w-3xl w-full rounded-3xl p-5 border-2 border-cyan-400/50 flex flex-col max-h-[92vh] overflow-y-auto">
+      <div class="flex items-center justify-between border-b border-cyan-400/30 pb-3 mb-3">
+        <div>
+          <span class="text-[10px] font-mono-ticket uppercase tracking-widest text-cyan-300 font-bold block">🏎️ ROYAL KERALA MOTORS • CARS, SUVS &amp; MOTORBIKES</span>
+          <h3 class="text-lg font-extrabold text-white font-ml">വാഹന ഷോറൂം — Vehicle Showroom (Exchange 💎 Gems)</h3>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="px-3 py-1 rounded-full bg-cyan-500/20 border border-cyan-400/40 text-xs font-mono-ticket font-extrabold text-cyan-200">💎 <strong id="showroom-gem-count">65</strong> Gems</span>
+          <button id="btn-close-showroom" type="button" class="px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-xs font-bold text-white cursor-pointer">✕ Close</button>
+        </div>
+      </div>
+
+      <!-- Paint Color Customizer Bar -->
+      <div class="bg-black/40 border border-white/10 rounded-2xl p-3 mb-3.5 flex flex-wrap items-center justify-between gap-2 text-xs">
+        <div class="flex items-center gap-2 flex-wrap">
+          <span class="font-bold text-amber-300">🎨 Vehicle Paint Color:</span>
+          <div id="showroom-color-swatches" class="flex items-center gap-1.5">
+            <button type="button" data-vcolor="#dc2626" class="btn-vcolor w-6 h-6 rounded-full border-2 border-white shadow cursor-pointer" style="background:#dc2626" title="Ruby Red"></button>
+            <button type="button" data-vcolor="#2563eb" class="btn-vcolor w-6 h-6 rounded-full border border-white/40 shadow cursor-pointer" style="background:#2563eb" title="Royal Blue"></button>
+            <button type="button" data-vcolor="#059669" class="btn-vcolor w-6 h-6 rounded-full border border-white/40 shadow cursor-pointer" style="background:#059669" title="Emerald Green"></button>
+            <button type="button" data-vcolor="#eab308" class="btn-vcolor w-6 h-6 rounded-full border border-white/40 shadow cursor-pointer" style="background:#eab308" title="Golden Yellow"></button>
+            <button type="button" data-vcolor="#f8fafc" class="btn-vcolor w-6 h-6 rounded-full border border-white/40 shadow cursor-pointer" style="background:#f8fafc" title="Pearl White"></button>
+            <button type="button" data-vcolor="#1e293b" class="btn-vcolor w-6 h-6 rounded-full border border-white/40 shadow cursor-pointer" style="background:#1e293b" title="Midnight Black"></button>
+            <button type="button" data-vcolor="#ea580c" class="btn-vcolor w-6 h-6 rounded-full border border-white/40 shadow cursor-pointer" style="background:#ea580c" title="Sunset Orange"></button>
+            <button type="button" data-vcolor="#7c3aed" class="btn-vcolor w-6 h-6 rounded-full border border-white/40 shadow cursor-pointer" style="background:#7c3aed" title="Electric Purple"></button>
+          </div>
+        </div>
+        <label class="flex items-center gap-2 bg-black/50 px-2.5 py-1 rounded-xl border border-white/10">
+          <span class="text-[11px] text-emerald-200">Custom Paint:</span>
+          <input id="input-vehicle-color" type="color" value="#dc2626" class="w-7 h-5 rounded cursor-pointer bg-transparent border-0" />
+        </label>
+      </div>
+
+      <!-- 6 Multi-Sub-Geometry Vehicles Grid (Bikes, Scooters, Cars, SUVs & Supercars) -->
+      <div id="showroom-vehicles-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2.5 mb-3.5"></div>
+
+      <div id="showroom-feedback" class="text-xs bg-black/45 border border-cyan-400/30 rounded-xl p-3 text-cyan-100 font-ml flex flex-wrap items-center justify-between gap-2">
+        <span id="showroom-feedback-text">💡 Play Mini-Games (Vadam Vali, Vallam Kali, Goli, Thenga Idal) to earn 💎 Gems and unlock bikes &amp; cars!</span>
+        <button id="btn-showroom-play-minigame" type="button" class="px-3 py-1.5 rounded-xl bg-amber-400 hover:bg-amber-300 text-amber-950 font-extrabold cursor-pointer">🎯 Earn Gems in Mini-Games</button>
+      </div>
+    </div>
+  </div>
+
   <!-- ===================================================================== -->
   <!-- SHOP INTERACTION MODAL (CHAYAKKADA & JUICE KADA)                      -->
   <!-- ===================================================================== -->
@@ -547,7 +642,7 @@
       </div>
 
       <div class="flex items-center justify-between text-xs text-emerald-200">
-        <span>🏆 Points: <strong id="shop-token-count">935</strong></span>
+        <span>💎 Gems: <strong id="shop-token-count">65</strong></span>
         <button id="btn-shop-play-goli" type="button" class="px-3.5 py-2 rounded-xl bg-emerald-700 hover:bg-emerald-600 text-white font-bold cursor-pointer">🔮 Play Marble Shoot</button>
       </div>
     </div>
@@ -688,7 +783,7 @@
 
       <div id="mg-status-banner" class="mt-3 text-xs bg-black/40 border border-emerald-500/30 rounded-xl px-3.5 py-2 text-emerald-100 flex items-center justify-between">
         <span id="mg-status-text">Ready!</span>
-        <span class="font-mono-ticket text-[11px] text-amber-300">Win = +50 Points 🏆</span>
+        <span class="font-mono-ticket text-[11px] text-cyan-300">Win = +50 Gems 💎</span>
       </div>
     </div>
   </div>
@@ -1051,8 +1146,15 @@
         primaryColor: '#d97706',
         secondaryColor: '#fcf8ec',
         borderColor: '#d4af37',
-        points: 935,
-        weather: 'golden',
+        points: 65,
+        weather: 'sunny',
+        weatherLabel: 'Sunny Sky',
+        weatherIcon: '☀️',
+        weatherTimer: 44.0,
+        weatherIndex: 0,
+        timeOfDay: 9.5, // Starts at 09:30 AM and progresses automatically
+        airplaneTimer: 4.0, // First plane flyover 4s after entering!
+        airplaneActive: false,
         audioEnabled: true,
         roomCode: 'KL-904',
         activeMinigame: null,
@@ -1062,15 +1164,15 @@
         drivingCar: false,
         inTrainCutscene: false,
         sphereWorldEnabled: true,
-        sphereRadius: 175.0,
+        sphereRadius: 125.0,
         cameraShake: 0,
         cameraPreset: 0,
         lastChatText: '',
         lastChatExpires: 0,
         player: {
-          x: -10,
+          x: 0,
           y: 0,
-          z: 65,
+          z: 58,
           vx: 0,
           vy: 0,
           vz: 0,
@@ -1086,11 +1188,11 @@
         },
         cam: {
           yaw: Math.PI,
-          pitch: 0.43,
-          distance: 14.5,
-          currentX: -10,
-          currentY: 8.5,
-          currentZ: 80
+          pitch: 0.11,
+          distance: 13.2,
+          currentX: 0,
+          currentY: 4.2,
+          currentZ: 71.2
         },
         keys: {
           w: false, a: false, s: false, d: false,
@@ -1109,12 +1211,26 @@
           pointerId: null,
           touchId: null,
           lastX: 0,
-          lastY: 0
+          lastY: 0,
+          hoverX: null,
+          hoverY: null
         },
         bus: { x: -40.0, z: 12.0, speed: 16.5, moving: true, wheelRot: 0, dir: 1 },
         busNS: { x: 0.0, z: -60.0, speed: 15.0, moving: true, wheelRot: 0, dir: 1 },
         train: { x: -60.0, z: -12.0, moving: true, speed: 24.0, wheelRot: 0 },
-        car: { x: 10.5, z: 18.0, yaw: 0 },
+        car: { x: 16.5, z: 27.5, yaw: Math.PI },
+        vehicle: {
+          owned: new Set(),
+          activeModelId: null,
+          color: '#dc2626',
+          x: 16.5,
+          z: 27.5,
+          yaw: Math.PI,
+          forwardSpeed: 0,
+          steerAngle: 0,
+          wheelSpin: 0,
+          leanAngle: 0
+        },
         toastTimer: null,
         whereNextIndex: 0
       };
@@ -1170,17 +1286,30 @@
           voiceMl: 'കനാൽപ്പുഴ റെയിൽവേ ജംഗ്ഷനിലേക്ക് സ്വാഗതം! പതിനാല് ജില്ലകളിലേക്കും ഇവിടെ നിന്ന് ട്രെയിൻ കയറാം.'
         },
         {
+          id: 'showroom',
+          name: 'Royal Motors Vehicle Showroom (വാഹന ഷോറൂം)',
+          ml: 'വാഹന ഷോറൂം',
+          promptMl: 'വാഹന ഷോറൂമിൽ കയറണോ? (Buy Cars & Bikes)',
+          acceptMl: 'Open Showroom 🏎️',
+          x: 16.5,
+          z: 22.0,
+          radius: 7.5,
+          actionType: 'showroom',
+          npcName: '🏎️ വാഹന ഷോറൂം',
+          voiceMl: 'റോയൽ മോട്ടോഴ്സ് വാഹന ഷോറൂമിലേക്ക് സ്വാഗതം! ജെംസ് ഉപയോഗിച്ച് ഇഷ്ടമുള്ള കാറുകളും ബൈക്കുകളും സ്വന്തമാക്കാം!'
+        },
+        {
           id: 'car_spot',
-          name: 'Village Ambassador Car',
-          ml: 'ഗ്രാമീണ കാർ',
-          promptMl: 'കാർ ഓടിക്കണോ?',
-          acceptMl: 'Drive Car',
-          x: 10.5,
-          z: 18.0,
-          radius: 5.5,
+          name: 'Your Parked Vehicle',
+          ml: 'നിങ്ങളുടെ വാഹനം',
+          promptMl: 'വാഹനം ഓടിക്കണോ?',
+          acceptMl: 'Drive Vehicle 🔑',
+          x: 9999.0,
+          z: 9999.0,
+          radius: 5.2,
           actionType: 'car',
-          npcName: '🚗 കാർ',
-          voiceMl: 'കാർ സ്റ്റാർട്ട് ചെയ്തു! ഇറങ്ങാൻ താഴെയുള്ള ബട്ടണോ E കീയോ അമർത്തുക.'
+          npcName: '🔑 നിങ്ങളുടെ വാഹനം',
+          voiceMl: 'വാഹനം സ്റ്റാർട്ട് ചെയ്തു!'
         },
         {
           id: 'chayakkada',
@@ -1302,15 +1431,16 @@
         commentaryIdx: 0,
 
         init() {
-          if ('speechSynthesis' in window && !this.mlVoice) {
+          if ('speechSynthesis' in window) {
             const pickVoice = () => {
               const voices = window.speechSynthesis.getVoices() || [];
-              this.mlVoice =
-                voices.find((v) => v.lang && v.lang.toLowerCase().includes('ml')) ||
-                voices.find((v) => v.name && v.name.toLowerCase().includes('malayalam')) ||
-                voices.find((v) => v.lang && v.lang.toLowerCase().includes('hi-in')) ||
-                voices.find((v) => v.lang && v.lang.toLowerCase().includes('en-in')) ||
-                voices[0] || null;
+              // STRICT PURE MALAYALAM CHECK: Only use a genuine Malayalam ('ml' / 'ml-IN') voice.
+              // Never fall back to Kannada, Tamil, Hindi, or English voices!
+              this.mlVoice = voices.find((v) => {
+                const lang = (v.lang || '').toLowerCase().trim();
+                const name = (v.name || '').toLowerCase();
+                return lang === 'ml' || lang.startsWith('ml-') || lang.startsWith('ml_') || name.includes('malayalam') || name.includes('മലയാളം');
+              }) || null;
             };
             pickVoice();
             window.speechSynthesis.onvoiceschanged = pickVoice;
@@ -1331,12 +1461,15 @@
           showVoiceToast(speakerLabel, textMl);
           if (!state.audioEnabled) return;
           this.init();
+          // Strictly speak ONLY if a verified pure Malayalam voice is available on the device.
+          // If no pure Malayalam voice is installed, stay silent (no Kannada/Tamil/other TTS fallback).
+          if (!this.mlVoice) return;
           try {
             if ('speechSynthesis' in window) {
               window.speechSynthesis.cancel();
               const utter = new SpeechSynthesisUtterance(textMl);
-              if (this.mlVoice) utter.voice = this.mlVoice;
-              utter.lang = 'ml-IN';
+              utter.voice = this.mlVoice;
+              utter.lang = this.mlVoice.lang || 'ml-IN';
               utter.pitch = 1.0;
               utter.rate = 0.95;
               utter.volume = 0.92;
@@ -1512,7 +1645,7 @@
       scene.background = new THREE.Color(0xcde8d2);
       scene.fog = new THREE.FogExp2(0xcde8d2, 0.0026);
 
-      const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.2, 460);
+      const camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 0.6, 460);
       const renderer = new THREE.WebGLRenderer({ antialias: true, powerPreference: 'high-performance' });
       renderer.setSize(window.innerWidth, window.innerHeight);
       renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.35));
@@ -1540,45 +1673,73 @@
       const woodMat = new THREE.MeshStandardMaterial({ color: 0x6e4226, roughness: 0.68, metalness: 0.07 });
       const darkWoodMat = new THREE.MeshStandardMaterial({ color: 0x3e2312, roughness: 0.74, metalness: 0.05 });
       const brassMat = new THREE.MeshStandardMaterial({ color: 0xd4af37, roughness: 0.24, metalness: 0.82 });
-      const sandMat = new THREE.MeshStandardMaterial({ color: 0xebd8ab, roughness: 0.54, metalness: 0.06 });
-      const waterMat = new THREE.MeshStandardMaterial({ color: 0x22998b, roughness: 0.2, metalness: 0.3, flatShading: true });
-      const paddyMat = new THREE.MeshStandardMaterial({ color: 0x97ce42, roughness: 0.82 });
+      const sandMat = new THREE.MeshStandardMaterial({ color: 0xebd8ab, roughness: 0.54, metalness: 0.06, polygonOffset: true, polygonOffsetFactor: -1, polygonOffsetUnits: -1 });
+      const waterMat = new THREE.MeshStandardMaterial({ color: 0x1e9688, roughness: 0.22, metalness: 0.25, flatShading: false });
+      const paddyMat = new THREE.MeshStandardMaterial({ color: 0x97ce42, roughness: 0.82, polygonOffset: true, polygonOffsetFactor: -1, polygonOffsetUnits: -1 });
       const lateriteMat = new THREE.MeshStandardMaterial({ color: 0x9e3e24, roughness: 0.86 });
       const graniteMat = new THREE.MeshStandardMaterial({ color: 0x64686b, roughness: 0.88, metalness: 0.08, flatShading: true });
       const darkGraniteMat = new THREE.MeshStandardMaterial({ color: 0x474b4e, roughness: 0.92, flatShading: true });
       const glassMat = new THREE.MeshStandardMaterial({ color: 0xbae6fd, roughness: 0.15, metalness: 0.65, transparent: true, opacity: 0.78 });
 
       // =====================================================================
-      // SPHERICAL / CURVED WORLD ("SPHERE WORLD") ENGINE
-      // Curves all ground planes, roads, tracks, water & 3D objects around the player
+      // SEAMLESS LOOPING SPHERICAL WORLD ("SPHERE WORLD") ENGINE
+      // Wraps coordinates smoothly in a 360° globe loop with zero borders
+      // and keeps all building foundations solidly grounded!
       // =====================================================================
+      const LOOP_X = 240.0; // Seamless East-West ball circumference (-120 to +120)
+      const LOOP_Z = 240.0; // Seamless North-South ball circumference (-120 to +120)
+
+      function wrapDelta(d, span) {
+        return ((((d + span * 0.5) % span) + span) % span) - span * 0.5;
+      }
+
+      function wrapWorldCoord(val, span) {
+        return wrapDelta(val, span);
+      }
+
       const sphereWorldObjects = [];
       const curvedTerrainMeshes = [];
+      const nightGlowMaterials = [];
 
       function getSphereDrop(wx, wz) {
         if (!state.sphereWorldEnabled) return 0;
-        const dx = wx - state.player.x;
-        const dz = wz - state.player.z;
+        const dx = wrapDelta(wx - state.player.x, LOOP_X);
+        const dz = wrapDelta(wz - state.player.z, LOOP_Z);
         return -((dx * dx + dz * dz) / (2.0 * state.sphereRadius));
       }
 
-      function registerSphereObject(mesh, wx, wz, baseY = 0, tiltScale = 0.52) {
+      function registerSphereObject(mesh, wx, wz, baseY = -0.05, tiltScale = 0.08) {
         const baseRx = mesh.rotation.x;
         const baseRz = mesh.rotation.z;
         sphereWorldObjects.push({ mesh, wx, wz, baseY, baseRx, baseRz, tiltScale });
       }
 
-      function registerCurvedPlane(mesh, centerX, centerZ, baseY, rotZ = 0) {
+      function registerCurvedPlane(mesh, centerX, centerZ, baseY, isWater = false) {
         const pos = mesh.geometry.attributes.position;
         const origX = new Float32Array(pos.count);
         const origY = new Float32Array(pos.count);
         const origZ = new Float32Array(pos.count);
         for (let i = 0; i < pos.count; i++) {
-          origX[i] = pos.getX(i);
-          origY[i] = pos.getY(i);
-          origZ[i] = pos.getZ(i);
+          const vx = pos.getX(i);
+          let vy = pos.getY(i);
+          const vz = pos.getZ(i);
+          if (isWater) {
+            // Depress water mesh 1.8m underground wherever a bridge crosses (x=0, x=48, x=-24, x=-60) so bridge floors are 100% dry!
+            const wx = wrapWorldCoord(centerX + vx, LOOP_X);
+            if (
+              Math.abs(wx) <= 7.8 ||
+              Math.abs(wx - 48.0) <= 7.2 ||
+              Math.abs(wx - (-24.0)) <= 5.8 ||
+              Math.abs(wx - (-60.0)) <= 5.8
+            ) {
+              vy = -1.85;
+            }
+          }
+          origX[i] = vx;
+          origY[i] = vy;
+          origZ[i] = vz;
         }
-        curvedTerrainMeshes.push({ mesh, pos, origX, origY, origZ, centerX, centerZ, baseY, rotZ });
+        curvedTerrainMeshes.push({ mesh, pos, origX, origY, origZ, centerX, centerZ, baseY });
       }
 
       function createCheckerGrassTexture() {
@@ -1648,162 +1809,161 @@
       const leaderboardCtx = leaderboardCanvas.getContext('2d');
       const leaderboardTexture = new THREE.CanvasTexture(leaderboardCanvas);
 
+      function renderLeaderboardModal() {
+        const sorted = [...kerala14Districts].sort((a, b) => b.pts - a.pts);
+        const top1 = sorted[0];
+        const top1Pill = document.getElementById('hud-leader-top1');
+        if (top1Pill && top1) {
+          top1Pill.textContent = `#1 ${top1.en} (${top1.pts} 💎)`;
+        }
+        const leaderNameEl = document.getElementById('leaderboard-leader-name');
+        const leaderGemsEl = document.getElementById('leaderboard-leader-gems');
+        if (leaderNameEl && top1) leaderNameEl.textContent = `1. ${top1.en} (${top1.ml}) • ${top1.badge}`;
+        if (leaderGemsEl && top1) leaderGemsEl.textContent = `💎 ${top1.pts}`;
+
+        const listEl = document.getElementById('leaderboard-list-container');
+        if (!listEl) return;
+        listEl.innerHTML = '';
+        const maxGems = Math.max(1, top1 ? top1.pts : 1000);
+
+        sorted.forEach((d, idx) => {
+          const isMine = d.ml === state.playerDistrict;
+          const pct = Math.min(100, Math.round((d.pts / maxGems) * 100));
+          const row = document.createElement('div');
+          row.className = `p-2.5 rounded-xl border flex flex-col gap-1 ${
+            isMine ? 'bg-amber-500/20 border-amber-400' : 'bg-black/35 border-white/10'
+          }`;
+          row.innerHTML = `
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <span class="w-6 h-6 rounded-full ${idx === 0 ? 'bg-amber-400 text-amber-950' : 'bg-white/10 text-emerald-200'} font-mono-ticket font-extrabold text-[11px] flex items-center justify-center">#${idx + 1}</span>
+                <span class="font-bold text-white">${d.icon} ${d.en}</span>
+                <span class="text-[11px] font-ml text-emerald-200">(${d.ml})</span>
+                ${isMine ? '<span class="text-[10px] bg-amber-400/30 text-amber-200 px-2 py-0.5 rounded-full font-bold">Your District</span>' : ''}
+              </div>
+              <span class="font-mono-ticket font-extrabold text-cyan-300">💎 ${d.pts}</span>
+            </div>
+            <div class="w-full h-1.5 bg-black/50 rounded-full overflow-hidden">
+              <div class="h-full bg-gradient-to-r from-cyan-400 to-amber-400 rounded-full" style="width:${pct}%"></div>
+            </div>
+          `;
+          listEl.appendChild(row);
+        });
+      }
+
       function renderLeaderboardTexture() {
         const ctx = leaderboardCtx;
-        ctx.fillStyle = '#203329';
+        ctx.fillStyle = '#182c23';
         ctx.fillRect(0, 0, 512, 640);
         ctx.strokeStyle = '#d4af37';
         ctx.lineWidth = 10;
         ctx.strokeRect(10, 10, 492, 620);
         ctx.fillStyle = '#ffffff';
-        ctx.font = '800 36px "Inter", sans-serif';
+        ctx.font = '800 32px "Inter", sans-serif';
         ctx.textAlign = 'center';
-        ctx.fillText('TOP KERALA DISTRICTS', 256, 60);
-        ctx.fillStyle = '#a7d489';
-        ctx.font = '700 25px "Noto Sans Malayalam", sans-serif';
-        ctx.fillText('മികച്ച ജില്ലകൾ (14 Districts)', 256, 100);
+        ctx.fillText('💎 DISTRICT GEMS LEADERBOARD', 256, 58);
+        ctx.fillStyle = '#67e8f9';
+        ctx.font = '700 22px "Inter", sans-serif';
+        ctx.fillText('Top Kerala Districts by Gems', 256, 98);
 
         const sorted = [...kerala14Districts].sort((a, b) => b.pts - a.pts).slice(0, 8);
         sorted.forEach((d, idx) => {
-          const y = 168 + idx * 56;
+          const y = 164 + idx * 56;
           if (d.ml === state.playerDistrict) {
-            ctx.fillStyle = 'rgba(212, 175, 55, 0.24)';
-            ctx.fillRect(28, y - 30, 456, 46);
+            ctx.fillStyle = 'rgba(212, 175, 55, 0.26)';
+            ctx.fillRect(24, y - 30, 464, 46);
           }
           ctx.textAlign = 'left';
           ctx.fillStyle = idx === 0 ? '#fde047' : '#ffffff';
-          ctx.font = '700 26px "Noto Sans Malayalam", sans-serif';
-          ctx.fillText(`${idx + 1}. ${d.ml}`, 44, y);
+          ctx.font = '700 24px "Inter", sans-serif';
+          ctx.fillText(`#${idx + 1} ${d.en}`, 38, y);
           ctx.textAlign = 'right';
-          ctx.fillStyle = '#fde047';
-          ctx.font = '700 27px "Space Mono", monospace';
-          ctx.fillText(String(d.pts), 468, y);
+          ctx.fillStyle = '#67e8f9';
+          ctx.font = '700 25px "Space Mono", monospace';
+          ctx.fillText(`💎 ${d.pts}`, 472, y);
         });
         leaderboardTexture.needsUpdate = true;
+        renderLeaderboardModal();
       }
       renderLeaderboardTexture();
 
-      // --- Infinite-Horizon Subdivided Spherical Terrain & Endless Arabian Sea ---
-      // Massive 2000x2000 subdivided terrain so players can NEVER see any plane edge!
-      const baseGrassGeo = new THREE.PlaneGeometry(2000, 2000, 68, 68);
+      // --- True 3D Ball World Surface (3x3 Periodic 240m Globe Grid = 720m x 720m) ---
+      // 100% Fixed in world coordinates so road stripes & ground lines NEVER slide or jump!
+      const baseGrassGeo = new THREE.PlaneGeometry(720, 720, 108, 108);
       baseGrassGeo.rotateX(-Math.PI / 2);
       const grassTex = createCheckerGrassTexture();
-      grassTex.repeat.set(125, 125);
+      grassTex.repeat.set(48, 48); // Exact 16 repeats per 240m ball loop!
       const baseGrass = new THREE.Mesh(
         baseGrassGeo,
         new THREE.MeshStandardMaterial({ map: grassTex, roughness: 0.9 })
       );
       scene.add(baseGrass);
-      registerCurvedPlane(baseGrass, 0, 0, 0);
+      registerCurvedPlane(baseGrass, 0, 0, 0.0);
 
-      const paddyGeo = new THREE.PlaneGeometry(95, 80, 16, 16);
-      paddyGeo.rotateX(-Math.PI / 2);
-      const paddyField = new THREE.Mesh(paddyGeo, paddyMat);
-      paddyField.position.set(-78, 0.03, -8);
-      scene.add(paddyField);
-      registerCurvedPlane(paddyField, -78, -8, 0.03);
-
-      const beachGeo = new THREE.PlaneGeometry(1800, 48, 56, 8);
-      beachGeo.rotateX(-Math.PI / 2);
-      const beachSand = new THREE.Mesh(beachGeo, sandMat);
-      beachSand.position.set(0, 0.03, 86);
-      scene.add(beachSand);
-      registerCurvedPlane(beachSand, 0, 86, 0.03);
-
-      // 1.2 Endless Animated Arabian Sea PlaneGeometry(1800, 600, 64, 48) + Seafoam Tide Line
-      const seaGeo = new THREE.PlaneGeometry(1800, 600, 64, 48);
-      seaGeo.rotateX(-Math.PI / 2);
-      const seaWater = new THREE.Mesh(seaGeo, waterMat);
-      seaWater.position.set(0, 0.12, 398);
-      scene.add(seaWater);
-
-      // Translucent White Seafoam Lines Washing Up on Kozhikode Beach Sand
-      const seaFoamMat1 = new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.65 });
-      const seaFoamMat2 = new THREE.MeshBasicMaterial({ color: 0xe0f2fe, transparent: true, opacity: 0.42 });
-      const foamGeo1 = new THREE.PlaneGeometry(1600, 1.4, 48, 2);
-      foamGeo1.rotateX(-Math.PI / 2);
-      const seaFoamLine1 = new THREE.Mesh(foamGeo1, seaFoamMat1);
-      seaFoamLine1.position.set(0, 0.07, 103.0);
-      scene.add(seaFoamLine1);
-      registerCurvedPlane(seaFoamLine1, 0, 103.0, 0.07);
-
-      const foamGeo2 = new THREE.PlaneGeometry(1600, 0.9, 48, 2);
-      foamGeo2.rotateX(-Math.PI / 2);
-      const seaFoamLine2 = new THREE.Mesh(foamGeo2, seaFoamMat2);
-      seaFoamLine2.position.set(0, 0.065, 100.8);
-      scene.add(seaFoamLine2);
-      registerCurvedPlane(seaFoamLine2, 0, 100.8, 0.065);
-
-      // Kozhikode Beach Wooden Sea Pier with Railings & Lamps
-      const pierGroup = new THREE.Group();
-      pierGroup.position.set(-24, 0, 111);
-      const pierDeck = new THREE.Mesh(new THREE.BoxGeometry(4.6, 0.28, 28), woodMat);
-      pierDeck.position.set(0, 0.55, 0);
-      pierGroup.add(pierDeck);
-      for (let pz = -12; pz <= 12; pz += 4) {
-        [-2.0, 2.0].forEach((dx) => {
-          const post = new THREE.Mesh(new THREE.CylinderGeometry(0.18, 0.22, 2.2, 8), darkWoodMat);
-          post.position.set(dx, 0.65, pz);
-          pierGroup.add(post);
+      // Palakkad Paddy Field (3x3 Periodic Ball Grid so it wraps seamlessly)
+      [-240, 0, 240].forEach((tx) => {
+        [-240, 0, 240].forEach((tz) => {
+          const paddyGeo = new THREE.PlaneGeometry(84, 68, 12, 12);
+          paddyGeo.rotateX(-Math.PI / 2);
+          const paddyField = new THREE.Mesh(paddyGeo, paddyMat);
+          paddyField.position.set(-78 + tx, 0, -8 + tz);
+          scene.add(paddyField);
+          registerCurvedPlane(paddyField, -78 + tx, -8 + tz, 0.02);
         });
-      }
-      [-2.0, 2.0].forEach((dx) => {
-        const rail = new THREE.Mesh(new THREE.BoxGeometry(0.1, 0.1, 26), roofTrimMat);
-        rail.position.set(dx, 1.45, 0);
-        pierGroup.add(rail);
-      });
-      scene.add(pierGroup);
-      registerSphereObject(pierGroup, -24, 111, 0, 0.35);
-
-      // Full Perimeter Western Ghats Mountain Ring (Framing the Infinite Horizon!)
-      const hillMat = new THREE.MeshStandardMaterial({ color: 0x568b3c, roughness: 0.88, flatShading: true });
-      const teaHillMat = new THREE.MeshStandardMaterial({ color: 0x3d9942, roughness: 0.82, flatShading: true });
-      [
-        [-155, -165, 52, 30, hillMat], [-95, -172, 54, 34, hillMat], [-30, -175, 56, 36, hillMat],
-        [35, -172, 52, 32, hillMat], [98, -162, 50, 32, teaHillMat], [155, -135, 48, 28, teaHillMat],
-        [172, -75, 46, 26, teaHillMat], [175, -15, 44, 24, hillMat], [170, 45, 42, 22, hillMat],
-        [-170, -120, 48, 28, hillMat], [-175, -55, 46, 25, hillMat], [-172, 10, 44, 22, hillMat],
-        [-168, 55, 40, 20, hillMat]
-      ].forEach(([hx, hz, rad, h, mat]) => {
-        const hill = new THREE.Mesh(new THREE.ConeGeometry(rad, h, 9), mat);
-        hill.position.set(hx, h * 0.45, hz);
-        scene.add(hill);
-        registerSphereObject(hill, hx, hz, h * 0.45, 0.3);
       });
 
-      // --- Infinite-Horizon Subdivided Road Network ---
-      const roadNSGeo = new THREE.PlaneGeometry(7.2, 1200, 2, 64);
-      roadNSGeo.rotateX(-Math.PI / 2);
-      const roadNS = new THREE.Mesh(
-        roadNSGeo,
-        new THREE.MeshStandardMaterial({ map: createRoadStripeTexture(120), roughness: 0.86 })
-      );
-      roadNS.position.set(0, 0.045, -490);
-      scene.add(roadNS);
-      registerCurvedPlane(roadNS, 0, -490, 0.045);
+      // Kozhikode Beach Golden Sand & Coastal Lagoon (3 Periodic Bands at z = 98 + {-240, 0, +240})
+      const seaWaterMeshes = [];
+      [-240, 0, 240].forEach((tz) => {
+        const beachGeo = new THREE.PlaneGeometry(720, 28, 108, 8);
+        beachGeo.rotateX(-Math.PI / 2);
+        const beachSand = new THREE.Mesh(beachGeo, sandMat);
+        beachSand.position.set(0, 0, 98.0 + tz);
+        scene.add(beachSand);
+        registerCurvedPlane(beachSand, 0, 98.0 + tz, 0.022);
 
-      const roadEWGeo = new THREE.PlaneGeometry(1600, 7.2, 64, 2);
-      roadEWGeo.rotateX(-Math.PI / 2);
-      const ewTex = createRoadStripeTexture(160);
+        const seaGeo = new THREE.PlaneGeometry(720, 14.5, 216, 6);
+        seaGeo.rotateX(-Math.PI / 2);
+        const seaMesh = new THREE.Mesh(seaGeo, waterMat);
+        seaMesh.position.set(0, 0, 100.0 + tz);
+        scene.add(seaMesh);
+        registerCurvedPlane(seaMesh, 0, 100.0 + tz, 0.028, true);
+        seaWaterMeshes.push(seaMesh);
+      });
+
+      // Stationary Periodic Road Network (3x3 Ball Loop — road lines NEVER slide!)
+      const nsRoadMat = new THREE.MeshStandardMaterial({ map: createRoadStripeTexture(90), roughness: 0.86, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2 });
+      const neRoadMat = new THREE.MeshStandardMaterial({ map: createRoadStripeTexture(90), roughness: 0.86, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2 });
+      const ewTex = createRoadStripeTexture(90);
       ewTex.center.set(0.5, 0.5);
       ewTex.rotation = Math.PI / 2;
-      const roadEW = new THREE.Mesh(
-        roadEWGeo,
-        new THREE.MeshStandardMaterial({ map: ewTex, roughness: 0.86 })
-      );
-      roadEW.position.set(0, 0.05, 12);
-      scene.add(roadEW);
-      registerCurvedPlane(roadEW, 0, 12, 0.05);
+      const ewRoadMat = new THREE.MeshStandardMaterial({ map: ewTex, roughness: 0.86, polygonOffset: true, polygonOffsetFactor: -3, polygonOffsetUnits: -3 });
 
-      const roadNEGeo = new THREE.PlaneGeometry(6.2, 190, 2, 28);
-      roadNEGeo.rotateX(-Math.PI / 2);
-      const roadNorthEast = new THREE.Mesh(
-        roadNEGeo,
-        new THREE.MeshStandardMaterial({ map: createRoadStripeTexture(22), roughness: 0.86 })
-      );
-      roadNorthEast.position.set(48, 0.045, -35);
-      scene.add(roadNorthEast);
-      registerCurvedPlane(roadNorthEast, 48, -35, 0.045);
+      [-240, 0, 240].forEach((offset) => {
+        // Main North-South Highway (x = 0)
+        const roadNSGeo = new THREE.PlaneGeometry(7.2, 720, 2, 108);
+        roadNSGeo.rotateX(-Math.PI / 2);
+        const rNS = new THREE.Mesh(roadNSGeo, nsRoadMat);
+        rNS.position.set(offset, 0, 0);
+        scene.add(rNS);
+        registerCurvedPlane(rNS, offset, 0, 0.042);
+
+        // East Village North-South Road (x = 48)
+        const roadNEGeo = new THREE.PlaneGeometry(6.4, 720, 2, 108);
+        roadNEGeo.rotateX(-Math.PI / 2);
+        const rNE = new THREE.Mesh(roadNEGeo, neRoadMat);
+        rNE.position.set(48.0 + offset, 0, 0);
+        scene.add(rNE);
+        registerCurvedPlane(rNE, 48.0 + offset, 0, 0.04);
+
+        // Main East-West Highway (z = 12)
+        const roadEWGeo = new THREE.PlaneGeometry(720, 7.2, 108, 2);
+        roadEWGeo.rotateX(-Math.PI / 2);
+        const rEW = new THREE.Mesh(roadEWGeo, ewRoadMat);
+        rEW.position.set(0, 0, 12.0 + offset);
+        scene.add(rEW);
+        registerCurvedPlane(rEW, 0, 12.0 + offset, 0.046);
+      });
 
       // =====================================================================
       // UNIVERSAL SOLID COLLISION REGISTRY (BUILDINGS, TREES, ROCKS, FORTS)
@@ -1812,6 +1972,7 @@
         { x: -14.5, z: -3.5, r: 4.6, name: 'Chayakkada' },
         { x: 15.5, z: -3.5, r: 4.4, name: 'Malappuram Juice Kada' },
         { x: -16.5, z: 22.0, r: 4.7, name: 'Neythupura Dress Boutique' },
+        { x: 16.5, z: 22.0, r: 4.7, name: 'Royal Motors Vehicle Showroom' },
         { x: -52.0, z: -12.0, r: 5.0, name: 'Kanalppuzha Railway Station' },
         { x: -7.5, z: 22.0, r: 2.2, name: 'Leaderboard Billboard' },
         { x: -95.0, z: 96.0, r: 3.2, name: 'Kovalam Lighthouse' },
@@ -1890,47 +2051,97 @@
       scene.add(pondGroup);
       registerSphereObject(pondGroup, -26.0, -4.0, 0);
 
-      // Backwater Canal (z: -38 to -24) + Two Detailed Bridges
-      const canalGeo = new THREE.PlaneGeometry(1600, 14.5, 64, 4);
-      canalGeo.rotateX(-Math.PI / 2);
-      const canalWater = new THREE.Mesh(canalGeo, waterMat);
-      canalWater.position.set(0, 0.05, -31.0);
-      scene.add(canalWater);
-      registerCurvedPlane(canalWater, 0, -31.0, 0.05);
+      // Backwater Canal (3 Periodic Strips at z = -31 + {-240, 0, +240})
+      [-240, 0, 240].forEach((tz) => {
+        const bankGeo = new THREE.PlaneGeometry(720, 15.6, 108, 4);
+        bankGeo.rotateX(-Math.PI / 2);
+        const bankMesh = new THREE.Mesh(bankGeo, sandMat);
+        bankMesh.position.set(0, 0, -31.0 + tz);
+        scene.add(bankMesh);
+        registerCurvedPlane(bankMesh, 0, -31.0 + tz, 0.02);
 
-      const bridgeGroup = new THREE.Group();
-      bridgeGroup.position.set(0, 0, -31.0);
-      const bridgeDeck = new THREE.Mesh(new THREE.BoxGeometry(7.6, 0.45, 16.8), creamWallMat);
-      bridgeDeck.position.y = 0.55;
-      bridgeGroup.add(bridgeDeck);
-
-      const rainbowColors = [0xef4444, 0xf97316, 0xfacc15, 0x22c55e, 0x3b82f6];
-      [-3.4, 3.4].forEach((sideX) => {
-        rainbowColors.forEach((colHex, idx) => {
-          const arch = new THREE.Mesh(
-            new THREE.TorusGeometry(6.4 - idx * 0.24, 0.11, 8, 24, Math.PI),
-            new THREE.MeshBasicMaterial({ color: colHex })
-          );
-          arch.rotation.y = Math.PI / 2;
-          arch.position.set(sideX, 0.68, 0);
-          bridgeGroup.add(arch);
-        });
+        const canalGeo = new THREE.PlaneGeometry(720, 12.8, 216, 4);
+        canalGeo.rotateX(-Math.PI / 2);
+        const canalMesh = new THREE.Mesh(canalGeo, waterMat);
+        canalMesh.position.set(0, 0, -31.0 + tz);
+        scene.add(canalMesh);
+        registerCurvedPlane(canalMesh, 0, -31.0 + tz, 0.028, true);
       });
-      scene.add(bridgeGroup);
-      registerSphereObject(bridgeGroup, 0, -31.0, 0);
 
-      const eastBridgeGroup = new THREE.Group();
-      eastBridgeGroup.position.set(48, 0, -31.0);
-      const eastBridge = new THREE.Mesh(new THREE.BoxGeometry(7.2, 0.45, 16.8), creamWallMat);
-      eastBridge.position.y = 0.55;
-      eastBridgeGroup.add(eastBridge);
-      [-3.3, 3.3].forEach((rx) => {
-        const parapet = new THREE.Mesh(new THREE.BoxGeometry(0.3, 0.85, 16.6), lateriteMat);
-        parapet.position.set(rx, 1.0, 0);
-        eastBridgeGroup.add(parapet);
-      });
-      scene.add(eastBridgeGroup);
-      registerSphereObject(eastBridgeGroup, 48, -31.0, 0);
+      // Helper: Build Segmented Sphere-Curved Bridges so the Bridge Floor NEVER Sinks Into Water!
+      function createCurvedBridge(centerX, centerZ, width, totalLen, style) {
+        const segCount = 11;
+        const segLen = totalLen / segCount;
+        for (let s = 0; s < segCount; s++) {
+          const localZ = -totalLen * 0.5 + (s + 0.5) * segLen;
+          const wz = centerZ + localZ;
+          const normZ = Math.min(1, Math.abs(localZ) / (totalLen * 0.5));
+          const archT = Math.cos(normZ * Math.PI * 0.5);
+          const deckTopY = 0.08 + Math.max(0, archT) * 0.52;
+
+          const segGroup = new THREE.Group();
+          segGroup.position.set(centerX, 0, wz);
+
+          // Solid thick foundation slab extending down to -0.45m so water NEVER shows through!
+          const deckMat = style === 'wood' ? woodMat : creamWallMat;
+          const deck = new THREE.Mesh(new THREE.BoxGeometry(width, deckTopY + 0.45, segLen + 0.18), deckMat);
+          deck.position.y = (deckTopY - 0.45) * 0.5;
+          segGroup.add(deck);
+
+          // Roadway surface strip on top of stone bridges
+          if (style !== 'wood') {
+            const wearStrip = new THREE.Mesh(
+              new THREE.BoxGeometry(width - 1.1, 0.06, segLen + 0.16),
+              new THREE.MeshStandardMaterial({ color: 0x575c55, roughness: 0.85 })
+            );
+            wearStrip.position.y = deckTopY + 0.01;
+            segGroup.add(wearStrip);
+          }
+
+          // Side Parapets / Railings
+          const railX = width * 0.5 - 0.25;
+          [-railX, railX].forEach((rx) => {
+            const rail = new THREE.Mesh(
+              new THREE.BoxGeometry(0.32, 0.68, segLen + 0.12),
+              style === 'wood' ? darkWoodMat : lateriteMat
+            );
+            rail.position.set(rx, deckTopY + 0.34, 0);
+            segGroup.add(rail);
+          });
+
+          scene.add(segGroup);
+          registerSphereObject(segGroup, centerX, wz, 0, 0.08);
+        }
+
+        if (style === 'rainbow') {
+          const archGroup = new THREE.Group();
+          archGroup.position.set(centerX, 0, centerZ);
+          const rainbowColors = [0xef4444, 0xf97316, 0xfacc15, 0x22c55e, 0x3b82f6];
+          [-(width * 0.5 - 0.35), (width * 0.5 - 0.35)].forEach((sideX) => {
+            rainbowColors.forEach((colHex, idx) => {
+              const arch = new THREE.Mesh(
+                new THREE.TorusGeometry(6.4 - idx * 0.24, 0.11, 8, 24, Math.PI),
+                new THREE.MeshBasicMaterial({ color: colHex })
+              );
+              arch.rotation.y = Math.PI / 2;
+              arch.position.set(sideX, 0.85, 0);
+              archGroup.add(arch);
+            });
+          });
+          scene.add(archGroup);
+          registerSphereObject(archGroup, centerX, centerZ, 0, 0.08);
+        }
+      }
+
+      // 1. Canal Bridges at z = -31.0
+      createCurvedBridge(0.0, -31.0, 8.2, 17.5, 'rainbow');   // Marine Drive Rainbow Bridge (x = 0)
+      createCurvedBridge(48.0, -31.0, 7.6, 17.5, 'stone');    // East Village Bridge (x = 48)
+      createCurvedBridge(-24.0, -31.0, 5.2, 17.5, 'wood');    // West Village Wooden Bridge (x = -24)
+
+      // 2. Coastal Sea Lagoon Bridges at z = 100.0
+      createCurvedBridge(0.0, 100.0, 8.2, 19.0, 'stone');     // Central Sea Link Bridge (x = 0)
+      createCurvedBridge(48.0, 100.0, 7.6, 19.0, 'stone');    // East Coastal Bridge (x = 48)
+      createCurvedBridge(-24.0, 100.0, 5.2, 22.0, 'wood');    // Kozhikode Beach Wooden Sea Pier & Bridge (x = -24)
 
       // Bobbing Wooden Vallams & Detailed Alappuzha Kettuvallam Houseboat
       const vallamMeshes = [];
@@ -1982,12 +2193,12 @@
         group.position.set(opts.x, 0, opts.z);
         if (opts.rotY) group.rotation.y = opts.rotY;
 
-        // Laterite stone foundation plinth & front steps
-        const plinth = new THREE.Mesh(new THREE.BoxGeometry(8.6, 0.52, 6.8), lateriteMat);
-        plinth.position.y = 0.26;
+        // Deep Grounded Laterite Foundation Plinth (extends 1.4m underground so it NEVER levitates on the curved sphere!)
+        const plinth = new THREE.Mesh(new THREE.BoxGeometry(8.8, 1.95, 7.0), lateriteMat);
+        plinth.position.y = -0.45;
         group.add(plinth);
-        const step = new THREE.Mesh(new THREE.BoxGeometry(3.6, 0.26, 0.85), graniteMat);
-        step.position.set(0, 0.13, 3.6);
+        const step = new THREE.Mesh(new THREE.BoxGeometry(3.8, 1.2, 0.95), graniteMat);
+        step.position.set(0, -0.32, 3.65);
         group.add(step);
 
         // Cream plastered walls + wooden decorative trims
@@ -2104,6 +2315,17 @@
         boutiqueBuilding.add(flame);
       });
 
+      // 4.2 Royal Kerala Motors Vehicle Showroom ("വാഹന ഷോറൂം") at (16.5, 22.0)
+      const showroomBuilding = createKeralaShopBuilding({
+        x: 16.5,
+        z: 22.0,
+        signMl: 'വാഹന ഷോറൂം',
+        signEn: 'ROYAL MOTORS • CARS & BIKES',
+        signBg: '#0f172a',
+        useBrassPillars: true
+      });
+      createRoadSignboard(11.0, 26.0, -0.15, 'വാഹന ഷോറൂം 🏎️', 'Cars & Bikes Showroom');
+
       // Traditional Village Houses with Solid Colliders
       [
         { x: -34.0, z: -16.0, signMl: 'തറവാട് വീട്', signEn: 'NALUKETTU HOME', signBg: '#1e3a2f' },
@@ -2125,25 +2347,25 @@
         signBg: '#1e3a8a'
       });
 
-      // Subdivided Railway Tracks running North-South at x = -60.0 (curving over the sphere!)
-      const trackBedGeo = new THREE.PlaneGeometry(4.6, 1400, 2, 64);
-      trackBedGeo.rotateX(-Math.PI / 2);
-      const trackBed = new THREE.Mesh(
-        trackBedGeo,
-        new THREE.MeshStandardMaterial({ color: 0x57534e, roughness: 0.95 })
-      );
-      trackBed.position.set(-60.0, 0.045, -15.0);
-      scene.add(trackBed);
-      registerCurvedPlane(trackBed, -60.0, -15.0, 0.045);
-
+      // Stationary 3x3 Ball Loop Railway Tracks at x = -60.0
+      const trackBedMat = new THREE.MeshStandardMaterial({ color: 0x57534e, roughness: 0.95 });
       const railMat = new THREE.MeshStandardMaterial({ color: 0xcbd5e1, metalness: 0.85, roughness: 0.25 });
-      [-61.15, -58.85].forEach((rx) => {
-        const railGeo = new THREE.PlaneGeometry(0.18, 1400, 1, 64);
-        railGeo.rotateX(-Math.PI / 2);
-        const rail = new THREE.Mesh(railGeo, railMat);
-        rail.position.set(rx, 0.09, -15.0);
-        scene.add(rail);
-        registerCurvedPlane(rail, rx, -15.0, 0.09);
+      [-240, 0, 240].forEach((tx) => {
+        const tGeo = new THREE.PlaneGeometry(4.6, 720, 2, 108);
+        tGeo.rotateX(-Math.PI / 2);
+        const tBed = new THREE.Mesh(tGeo, trackBedMat);
+        tBed.position.set(-60.0 + tx, 0, 0);
+        scene.add(tBed);
+        registerCurvedPlane(tBed, -60.0 + tx, 0, 0.042);
+
+        [-61.15 + tx, -58.85 + tx].forEach((rx) => {
+          const railGeo = new THREE.PlaneGeometry(0.18, 720, 1, 108);
+          railGeo.rotateX(-Math.PI / 2);
+          const rail = new THREE.Mesh(railGeo, railMat);
+          rail.position.set(rx, 0, 0);
+          scene.add(rail);
+          registerCurvedPlane(rail, rx, 0, 0.075);
+        });
       });
 
       // High-Detail Kerala Express Train (Always Running Continuously Around the Map!)
@@ -2484,30 +2706,382 @@
       busNSGroup.position.set(state.busNS.x, 0, state.busNS.z);
       busNSGroup.rotation.y = Math.PI / 2;
 
-      // Detailed Driveable Village Ambassador Car
+      // =====================================================================
+      // MULTI-SUB-GEOMETRY 3D VEHICLE BUILDER (SCOOTER, BULLET, SUPERBIKE,
+      // AMBASSADOR SEDAN, THAR 4x4 SUV, GT SUPERCAR)
+      // =====================================================================
+      const showroomCatalog = [
+        {
+          id: 'scooter',
+          name: '🛵 Classic Chetak Scooter',
+          ml: 'ക്ലാസിക് സ്കൂട്ടർ',
+          category: 'bike',
+          cost: 50,
+          maxSpeed: 21.0,
+          accel: 16.0,
+          turnRate: 2.15,
+          desc: 'Nimble retro Kerala scooter with curved leg-shield, chrome headlamp, dual seat & rear spare wheel.'
+        },
+        {
+          id: 'bullet_bike',
+          name: '🏍️ Royal Cruiser 350 Bike',
+          ml: 'റോയൽ ബുള്ളറ്റ് 350',
+          category: 'bike',
+          cost: 95,
+          maxSpeed: 25.5,
+          accel: 19.5,
+          turnRate: 1.95,
+          desc: 'Iconic teardrop tank cruiser motorcycle with exposed finned engine, chrome exhaust & telescopic forks.'
+        },
+        {
+          id: 'sports_bike',
+          name: '🏍️ Street Superbike 600',
+          ml: 'സ്പോർട്സ് സൂപ്പർബൈക്ക്',
+          category: 'bike',
+          cost: 145,
+          maxSpeed: 31.0,
+          accel: 25.0,
+          turnRate: 2.05,
+          desc: 'Aerodynamic twin-projector fairing superbike with racing windscreen visor, gold forks & upswept tail.'
+        },
+        {
+          id: 'ambassador',
+          name: '🚗 Vintage Ambassador Sedan',
+          ml: 'അംബാസഡർ കാർ',
+          category: 'car',
+          cost: 120,
+          maxSpeed: 24.0,
+          accel: 15.5,
+          turnRate: 1.55,
+          desc: 'Classic curved-hood sedan with slatted chrome grille, round bezel headlamps, 4 doors & roof rack.'
+        },
+        {
+          id: 'thar_suv',
+          name: '🚙 Off-Road Thar 4x4 SUV',
+          ml: 'ഓഫ്-റോഡ് ഥാർ 4x4 ജീപ്പ്',
+          category: 'car',
+          cost: 185,
+          maxSpeed: 27.5,
+          accel: 18.5,
+          turnRate: 1.62,
+          desc: 'Muscular 4x4 jeep with flared wheel arches, 7-slot grille, bullbar, roll-cage hardtop & rear spare tire.'
+        },
+        {
+          id: 'supercar',
+          name: '🏎️ GT Supercar Coupe',
+          ml: 'ജി.ടി സൂപ്പർകാർ',
+          category: 'car',
+          cost: 260,
+          maxSpeed: 34.0,
+          accel: 27.0,
+          turnRate: 1.72,
+          desc: 'Low-slung widebody supercar with carbon splitter, glass canopy, side air intakes & rear GT wing spoiler.'
+        }
+      ];
+
       const carGroup = new THREE.Group();
-      const carBody = new THREE.Mesh(new THREE.BoxGeometry(2.45, 0.88, 4.1), new THREE.MeshStandardMaterial({ color: 0xd9534f, roughness: 0.38, metalness: 0.2 }));
-      carBody.position.y = 0.76;
-      carGroup.add(carBody);
-      const carCabin = new THREE.Mesh(new THREE.BoxGeometry(2.15, 0.8, 2.25), roofTrimMat);
-      carCabin.position.set(0, 1.52, -0.15);
-      carGroup.add(carCabin);
-      const carGlass = new THREE.Mesh(new THREE.BoxGeometry(2.2, 0.62, 1.85), glassMat);
-      carGlass.position.set(0, 1.5, -0.15);
-      carGroup.add(carGlass);
-      [[-0.75, 2.06], [0.75, 2.06]].forEach(([hx, hz]) => {
-        const chl = new THREE.Mesh(new THREE.SphereGeometry(0.18, 8, 8), new THREE.MeshBasicMaterial({ color: 0xfef08a }));
-        chl.position.set(hx, 0.85, hz);
-        carGroup.add(chl);
-      });
-      [[-1.22, -1.28], [1.22, -1.28], [-1.22, 1.28], [1.22, 1.28]].forEach(([wx, wz]) => {
-        const cw = new THREE.Mesh(new THREE.CylinderGeometry(0.4, 0.4, 0.28, 12), tireMat);
-        cw.rotation.z = Math.PI / 2;
-        cw.position.set(wx, 0.4, wz);
-        carGroup.add(cw);
-      });
-      carGroup.position.set(state.car.x, 0, state.car.z);
+      carGroup.visible = false; // Hidden until player purchases a vehicle in the Showroom!
       scene.add(carGroup);
+
+      const chromeMat = new THREE.MeshStandardMaterial({ color: 0xe2e8f0, roughness: 0.18, metalness: 0.88 });
+      const matteBlackMat = new THREE.MeshStandardMaterial({ color: 0x1e293b, roughness: 0.75, metalness: 0.15 });
+      const saddleMat = new THREE.MeshStandardMaterial({ color: 0x3f2314, roughness: 0.65 });
+      const tailLightMat = new THREE.MeshBasicMaterial({ color: 0xef4444 });
+      const headLightMat = new THREE.MeshBasicMaterial({ color: 0xfef08a });
+
+      function buildVehicleSubGeometry(modelId, paintHex) {
+        while (carGroup.children.length > 0) {
+          carGroup.remove(carGroup.children[0]);
+        }
+        const paintMat = new THREE.MeshStandardMaterial({ color: paintHex || '#dc2626', roughness: 0.28, metalness: 0.35 });
+        const frontPivots = [];
+        const spinningWheels = [];
+        const bodyTiltGroup = new THREE.Group();
+        carGroup.add(bodyTiltGroup);
+
+        function makeDetailedWheel(radius, width, isFront) {
+          const wPivot = new THREE.Group();
+          const wMesh = new THREE.Group();
+          const tire = new THREE.Mesh(new THREE.CylinderGeometry(radius, radius, width, 16), tireMat);
+          tire.rotation.z = Math.PI / 2;
+          wMesh.add(tire);
+          const rim = new THREE.Mesh(new THREE.CylinderGeometry(radius * 0.58, radius * 0.58, width + 0.02, 12), chromeMat);
+          rim.rotation.z = Math.PI / 2;
+          wMesh.add(rim);
+          const hub = new THREE.Mesh(new THREE.BoxGeometry(width + 0.04, radius * 0.9, radius * 0.18), matteBlackMat);
+          wMesh.add(hub);
+          wPivot.add(wMesh);
+          spinningWheels.push(wMesh);
+          if (isFront) frontPivots.push(wPivot);
+          return wPivot;
+        }
+
+        if (modelId === 'scooter' || modelId === 'bullet_bike' || modelId === 'sports_bike') {
+          const isScooter = modelId === 'scooter';
+          const isSports = modelId === 'sports_bike';
+          const wRad = isScooter ? 0.30 : 0.38;
+          const wWid = isSports ? 0.22 : 0.15;
+
+          // Front & Rear Detailed Wheels
+          const fw = makeDetailedWheel(wRad, wWid, true);
+          fw.position.set(0, wRad, 0.92);
+          bodyTiltGroup.add(fw);
+
+          const rw = makeDetailedWheel(wRad, isSports ? 0.28 : wWid, false);
+          rw.position.set(0, wRad, -0.88);
+          bodyTiltGroup.add(rw);
+
+          // Front Telescopic Forks & Steering Column
+          const forkGroup = new THREE.Group();
+          forkGroup.position.set(0, 0.78, 0.72);
+          forkGroup.rotation.x = -0.32;
+          [-0.11, 0.11].forEach((fx) => {
+            const forkTube = new THREE.Mesh(new THREE.CylinderGeometry(0.032, 0.028, 0.85, 8), isSports ? brassMat : chromeMat);
+            forkTube.position.set(fx, 0, 0);
+            forkGroup.add(forkTube);
+          });
+          // Handlebars, Grips & Mirrors
+          const hBar = new THREE.Mesh(new THREE.CylinderGeometry(0.025, 0.025, 0.76, 8), chromeMat);
+          hBar.rotation.z = Math.PI / 2;
+          hBar.position.set(0, 0.42, -0.05);
+          forkGroup.add(hBar);
+          [-0.36, 0.36].forEach((gx) => {
+            const grip = new THREE.Mesh(new THREE.CylinderGeometry(0.034, 0.034, 0.14, 8), matteBlackMat);
+            grip.rotation.z = Math.PI / 2;
+            grip.position.set(gx, 0.42, -0.05);
+            forkGroup.add(grip);
+            const mirror = new THREE.Mesh(new THREE.SphereGeometry(0.05, 8, 8), chromeMat);
+            mirror.position.set(gx * 1.08, 0.56, -0.05);
+            forkGroup.add(mirror);
+          });
+          bodyTiltGroup.add(forkGroup);
+          frontPivots.push(forkGroup);
+
+          if (isScooter) {
+            // Classic Curved Leg-Shield Apron, Floorboard & Side Cowls
+            const apron = new THREE.Mesh(new THREE.BoxGeometry(0.56, 0.75, 0.16), paintMat);
+            apron.position.set(0, 0.72, 0.62);
+            apron.rotation.x = -0.22;
+            bodyTiltGroup.add(apron);
+            const floorboard = new THREE.Mesh(new THREE.BoxGeometry(0.52, 0.1, 0.88), matteBlackMat);
+            floorboard.position.set(0, 0.32, 0.1);
+            bodyTiltGroup.add(floorboard);
+            const rearCowl = new THREE.Mesh(new THREE.SphereGeometry(0.36, 12, 10), paintMat);
+            rearCowl.scale.set(0.95, 0.85, 1.55);
+            rearCowl.position.set(0, 0.58, -0.58);
+            bodyTiltGroup.add(rearCowl);
+            const spareWheel = new THREE.Mesh(new THREE.CylinderGeometry(0.24, 0.24, 0.12, 12), tireMat);
+            spareWheel.rotation.x = Math.PI / 2;
+            spareWheel.position.set(0, 0.62, -1.16);
+            bodyTiltGroup.add(spareWheel);
+          } else {
+            // Sculpted Fuel Tank, Exposed Finned Engine Block & Twin Chrome Exhausts
+            const tank = new THREE.Mesh(new THREE.SphereGeometry(0.28, 12, 10), paintMat);
+            tank.scale.set(0.88, 0.75, 1.65);
+            tank.position.set(0, 0.88, 0.22);
+            bodyTiltGroup.add(tank);
+
+            const engineBlock = new THREE.Mesh(new THREE.BoxGeometry(0.34, 0.38, 0.44), chromeMat);
+            engineBlock.position.set(0, 0.52, 0.12);
+            bodyTiltGroup.add(engineBlock);
+
+            [-0.19, 0.19].forEach((ex) => {
+              const pipe = new THREE.Mesh(new THREE.CylinderGeometry(0.038, 0.048, 1.35, 8), chromeMat);
+              pipe.rotation.x = Math.PI / 2 - (isSports ? 0.18 : 0.04);
+              pipe.position.set(ex, 0.36, -0.35);
+              bodyTiltGroup.add(pipe);
+            });
+
+            if (isSports) {
+              const fairing = new THREE.Mesh(new THREE.ConeGeometry(0.34, 0.72, 6), paintMat);
+              fairing.rotation.x = Math.PI / 2;
+              fairing.position.set(0, 0.82, 0.78);
+              bodyTiltGroup.add(fairing);
+              const visor = new THREE.Mesh(new THREE.BoxGeometry(0.36, 0.24, 0.32), glassMat);
+              visor.rotation.x = -0.55;
+              visor.position.set(0, 1.06, 0.65);
+              bodyTiltGroup.add(visor);
+            }
+          }
+
+          // Stepped Leather Saddle, Front Headlamp & Rear Tail Lamp
+          const seat = new THREE.Mesh(new THREE.BoxGeometry(0.34, 0.14, 0.78), saddleMat);
+          seat.position.set(0, 0.82, -0.38);
+          bodyTiltGroup.add(seat);
+
+          const hLamp = new THREE.Mesh(new THREE.SphereGeometry(0.11, 10, 10), headLightMat);
+          hLamp.position.set(0, 0.98, 0.88);
+          bodyTiltGroup.add(hLamp);
+
+          const tLamp = new THREE.Mesh(new THREE.BoxGeometry(0.16, 0.08, 0.06), tailLightMat);
+          tLamp.position.set(0, 0.76, -1.08);
+          bodyTiltGroup.add(tLamp);
+        } else {
+          // 4-Wheel Detailed Cars & SUVs: 'ambassador', 'thar_suv', 'supercar'
+          const isSuv = modelId === 'thar_suv';
+          const isSuper = modelId === 'supercar';
+          const wRad = isSuv ? 0.50 : (isSuper ? 0.38 : 0.42);
+          const wWid = isSuv ? 0.34 : (isSuper ? 0.32 : 0.26);
+          const trackX = isSuper ? 1.32 : 1.24;
+          const wheelBaseZ = isSuper ? 1.42 : 1.34;
+
+          [[-trackX, wheelBaseZ, true], [trackX, wheelBaseZ, true], [-trackX, -wheelBaseZ, false], [trackX, -wheelBaseZ, false]].forEach(([wx, wz, isF]) => {
+            const w = makeDetailedWheel(wRad, wWid, isF);
+            w.position.set(wx, wRad, wz);
+            bodyTiltGroup.add(w);
+          });
+
+          if (isSuper) {
+            // GT Supercar: Low-Slung Widebody Wedge, Carbon Splitter, Glass Canopy, Side Intakes & GT Wing
+            const chassis = new THREE.Mesh(new THREE.BoxGeometry(2.58, 0.56, 4.45), paintMat);
+            chassis.position.set(0, 0.54, 0);
+            bodyTiltGroup.add(chassis);
+
+            const noseHood = new THREE.Mesh(new THREE.BoxGeometry(2.42, 0.28, 1.35), paintMat);
+            noseHood.position.set(0, 0.62, 1.55);
+            noseHood.rotation.x = 0.14;
+            bodyTiltGroup.add(noseHood);
+
+            const splitter = new THREE.Mesh(new THREE.BoxGeometry(2.64, 0.08, 4.62), matteBlackMat);
+            splitter.position.set(0, 0.26, 0.04);
+            bodyTiltGroup.add(splitter);
+
+            const canopy = new THREE.Mesh(new THREE.SphereGeometry(1.08, 14, 10), glassMat);
+            canopy.scale.set(0.95, 0.52, 1.45);
+            canopy.position.set(0, 0.92, -0.1);
+            bodyTiltGroup.add(canopy);
+
+            // Side Air Intakes
+            [-1.31, 1.31].forEach((ix) => {
+              const intake = new THREE.Mesh(new THREE.BoxGeometry(0.12, 0.34, 0.95), matteBlackMat);
+              intake.position.set(ix, 0.56, -0.25);
+              bodyTiltGroup.add(intake);
+            });
+
+            // Raised Carbon GT Rear Wing Spoiler
+            [-0.65, 0.65].forEach((sx) => {
+              const strut = new THREE.Mesh(new THREE.BoxGeometry(0.08, 0.38, 0.22), matteBlackMat);
+              strut.position.set(sx, 0.98, -1.95);
+              bodyTiltGroup.add(strut);
+            });
+            const wingBlade = new THREE.Mesh(new THREE.BoxGeometry(2.48, 0.08, 0.42), matteBlackMat);
+            wingBlade.position.set(0, 1.18, -2.02);
+            wingBlade.rotation.x = -0.12;
+            bodyTiltGroup.add(wingBlade);
+          } else if (isSuv) {
+            // Off-Road Thar 4x4 Jeep SUV: Muscular Fenders, 7-Slot Grille, Hardtop Roll-Cage & Rear Spare Tire
+            const mainBody = new THREE.Mesh(new THREE.BoxGeometry(2.38, 0.98, 4.15), paintMat);
+            mainBody.position.set(0, 0.95, 0);
+            bodyTiltGroup.add(mainBody);
+
+            // Black Matte Hardtop Cabin + Roll Cage
+            const hardTop = new THREE.Mesh(new THREE.BoxGeometry(2.28, 0.88, 2.35), matteBlackMat);
+            hardTop.position.set(0, 1.82, -0.52);
+            bodyTiltGroup.add(hardTop);
+
+            const windshield = new THREE.Mesh(new THREE.BoxGeometry(2.12, 0.68, 0.14), glassMat);
+            windshield.position.set(0, 1.80, 0.68);
+            windshield.rotation.x = -0.15;
+            bodyTiltGroup.add(windshield);
+
+            const sideWindows = new THREE.Mesh(new THREE.BoxGeometry(2.34, 0.58, 1.75), glassMat);
+            sideWindows.position.set(0, 1.82, -0.55);
+            bodyTiltGroup.add(sideWindows);
+
+            // Flared Black Wheel Arch Fenders & Side Step Bars
+            [-1.24, 1.24].forEach((fx) => {
+              const stepBar = new THREE.Mesh(new THREE.BoxGeometry(0.22, 0.1, 2.2), matteBlackMat);
+              stepBar.position.set(fx, 0.46, 0);
+              bodyTiltGroup.add(stepBar);
+            });
+
+            // Front Heavy Bullbar & 7-Slot Jeep Grille
+            const bullbar = new THREE.Mesh(new THREE.BoxGeometry(2.46, 0.32, 0.35), matteBlackMat);
+            bullbar.position.set(0, 0.62, 2.15);
+            bodyTiltGroup.add(bullbar);
+
+            for (let s = -3; s <= 3; s++) {
+              const slot = new THREE.Mesh(new THREE.BoxGeometry(0.12, 0.48, 0.08), matteBlackMat);
+              slot.position.set(s * 0.22, 1.05, 2.08);
+              bodyTiltGroup.add(slot);
+            }
+
+            // Rear-Mounted Full-Size Spare Off-Road Tire
+            const spare = new THREE.Mesh(new THREE.CylinderGeometry(0.46, 0.46, 0.28, 14), tireMat);
+            spare.rotation.x = Math.PI / 2;
+            spare.position.set(0, 1.18, -2.18);
+            bodyTiltGroup.add(spare);
+          } else {
+            // Vintage Ambassador Sedan: Curved Hood, Chrome Grille, Bumpers, 4 Doors & Roof Rack
+            const lowerBody = new THREE.Mesh(new THREE.BoxGeometry(2.42, 0.84, 4.25), paintMat);
+            lowerBody.position.set(0, 0.78, 0);
+            bodyTiltGroup.add(lowerBody);
+
+            const hoodCurve = new THREE.Mesh(new THREE.CylinderGeometry(0.95, 1.05, 1.45, 12, 1, false, -Math.PI * 0.5, Math.PI), paintMat);
+            hoodCurve.rotation.x = Math.PI / 2;
+            hoodCurve.scale.set(1.0, 1.0, 0.32);
+            hoodCurve.position.set(0, 1.18, 1.32);
+            bodyTiltGroup.add(hoodCurve);
+
+            const cabin = new THREE.Mesh(new THREE.BoxGeometry(2.14, 0.78, 2.22), paintMat);
+            cabin.position.set(0, 1.52, -0.18);
+            bodyTiltGroup.add(cabin);
+
+            const winBand = new THREE.Mesh(new THREE.BoxGeometry(2.20, 0.58, 1.88), glassMat);
+            winBand.position.set(0, 1.52, -0.18);
+            bodyTiltGroup.add(winBand);
+
+            const fGlass = new THREE.Mesh(new THREE.BoxGeometry(1.96, 0.58, 2.28), glassMat);
+            fGlass.position.set(0, 1.52, -0.18);
+            bodyTiltGroup.add(fGlass);
+
+            // Chrome Front & Rear Bumpers + Slatted Grille
+            const fBumper = new THREE.Mesh(new THREE.BoxGeometry(2.52, 0.18, 0.22), chromeMat);
+            fBumper.position.set(0, 0.46, 2.16);
+            bodyTiltGroup.add(fBumper);
+            const rBumper = new THREE.Mesh(new THREE.BoxGeometry(2.52, 0.18, 0.22), chromeMat);
+            rBumper.position.set(0, 0.46, -2.16);
+            bodyTiltGroup.add(rBumper);
+            const grille = new THREE.Mesh(new THREE.BoxGeometry(1.38, 0.42, 0.12), chromeMat);
+            grille.position.set(0, 0.78, 2.12);
+            bodyTiltGroup.add(grille);
+          }
+
+          // Headlamps, Taillamps & Side Mirrors for all 4-wheel vehicles
+          const hlY = isSuper ? 0.58 : (isSuv ? 1.08 : 0.88);
+          const hlZ = isSuper ? 2.22 : (isSuv ? 2.09 : 2.13);
+          [-0.82, 0.82].forEach((hx) => {
+            const hl = new THREE.Mesh(new THREE.SphereGeometry(0.17, 10, 10), headLightMat);
+            hl.position.set(hx, hlY, hlZ);
+            bodyTiltGroup.add(hl);
+            const tl = new THREE.Mesh(new THREE.BoxGeometry(0.32, 0.16, 0.1), tailLightMat);
+            tl.position.set(hx, hlY, -hlZ);
+            bodyTiltGroup.add(tl);
+          });
+        }
+
+        carGroup.userData = {
+          modelId,
+          paintMat,
+          frontPivots,
+          spinningWheels,
+          bodyTiltGroup,
+          isBike: modelId === 'scooter' || modelId === 'bullet_bike' || modelId === 'sports_bike'
+        };
+      }
+
+      // Rotating Showroom Display Turntable Podium outside the Showroom at (16.5, 28.0)
+      const showroomPodiumGroup = new THREE.Group();
+      showroomPodiumGroup.position.set(16.5, 0, 28.0);
+      const podiumBase = new THREE.Mesh(new THREE.CylinderGeometry(2.8, 3.1, 0.24, 24), darkGraniteMat);
+      podiumBase.position.y = 0.12;
+      showroomPodiumGroup.add(podiumBase);
+      const podiumRing = new THREE.Mesh(new THREE.RingGeometry(2.55, 2.75, 24), brassMat);
+      podiumRing.rotation.x = -Math.PI / 2;
+      podiumRing.position.y = 0.25;
+      showroomPodiumGroup.add(podiumRing);
+      scene.add(showroomPodiumGroup);
+      registerSphereObject(showroomPodiumGroup, 16.5, 28.0, 0, 0.08);
 
       // Vayanashala Sports Ground & Goli Ring
       const clubGroup = new THREE.Group();
@@ -2816,37 +3390,156 @@
         playerChatTrack.mesh = playerCharacter;
       }
 
-      // --- Walk-Over Collectibles Across All 14 Districts ---
+      // --- Rare Hidden World Gems (Only 3 Rare Gems across the globe; play Mini-Games to earn more!) ---
       const collectiblesData = [
-        { label: 'Mango +15', pts: 15, color: 0xf59e0b, x: -6.0, z: 68.0, voice: 'നല്ല പഴുത്ത നാടൻ മാങ്ങ കിട്ടി! പതിനഞ്ച് പോയിന്റ്!' },
-        { label: 'Shell +10', pts: 10, color: 0xf8fafc, x: -18.0, z: 82.0, voice: 'കോഴിക്കോട് കടപ്പുറത്തെ ശംഖ് കിട്ടി! പത്ത് പോയിന്റ്!' },
-        { label: 'Shell +10', pts: 10, color: 0xf8fafc, x: -24.0, z: 118.0, voice: 'കടൽപ്പാലത്തിൽ നിന്ന് ശംഖ് കിട്ടി!' },
-        { label: 'Kasavu +25', pts: 25, color: 0xd4af37, x: -12.0, z: 24.0, voice: 'നെയ്ത്തുപുരയിൽ നിന്ന് സ്വർണ്ണ കസവ് സമ്മാനം! ഇരുപത്തിയഞ്ച് പോയിന്റ്!' },
-        { label: 'Banana +10', pts: 10, color: 0xfacc15, x: -6.0, z: 36.0, voice: 'നേന്ത്രപ്പഴം ശേഖരിച്ചു! പത്ത് പോയിന്റ്!' },
-        { label: 'Flower +5', pts: 5, color: 0xec4899, x: 4.5, z: 22.0, voice: 'തുമ്പപ്പൂവ് ശേഖരിച്ചു! അഞ്ച് പോയിന്റ്!' },
-        { label: 'Tea +20', pts: 20, color: 0xd97706, x: -9.5, z: 2.0, voice: 'കുട്ടേട്ടന്റെ സ്പെഷ്യൽ മീറ്റർ ചായ! ഇരുപത് പോയിന്റ്!' },
-        { label: 'Mango +15', pts: 15, color: 0xf59e0b, x: 11.0, z: 4.0, voice: 'മലപ്പുറം മാങ്ങ കിട്ടി! പതിനഞ്ച് പോയിന്റ്!' },
-        { label: 'Coconut +15', pts: 15, color: 0x78350f, x: 42.0, z: -6.0, voice: 'തൃശ്ശൂർ പൂരപ്പറമ്പിൽ നിന്ന് തേങ്ങ കിട്ടി!' },
-        { label: 'Flower +5', pts: 5, color: 0xfacc15, x: 0.0, z: -31.0, voice: 'മറൈൻ ഡ്രൈവ് പാലത്തിൽ നിന്ന് പൂവ് കിട്ടി!' },
-        { label: 'Tea Leaf +20', pts: 20, color: 0x16a34a, x: 78.0, z: -74.0, voice: 'ഇടുക്കി മൂന്നാർ തേയില ശേഖരിച്ചു! ഇരുപത് പോയിന്റ്!' },
-        { label: 'Shell +15', pts: 15, color: 0xfef08a, x: -90.0, z: 90.0, voice: 'തിരുവനന്തപുരം കോവളം ശംഖ് കിട്ടി!' },
-        { label: 'Kappa +15', pts: 15, color: 0xa16207, x: -105.0, z: -82.0, voice: 'കാസർഗോഡ് ബേക്കൽ കോട്ടയിൽ നിന്ന് പോയിന്റ് ലഭിച്ചു!' },
-        { label: 'Banana +10', pts: 10, color: 0xfacc15, x: -46.0, z: -12.0, voice: 'റെയിൽവേ സ്റ്റേഷനിൽ നിന്ന് പഴം കിട്ടി!' },
-        { label: 'Relic +30', pts: 30, color: 0x38bdf8, x: 28.0, z: -81.0, voice: 'വയനാട് ഇടക്കൽ ഗുഹയിൽ നിന്ന് ചരിത്ര നിധി കിട്ടി! മുപ്പത് പോയിന്റ്!' }
+        { label: 'Rare Gem +3', pts: 3, color: 0x38bdf8, x: 28.0, z: -81.0, voice: 'വയനാട് ഇടക്കൽ ഗുഹയിൽ നിന്ന് അപൂർവ്വ രത്നം കിട്ടി! മൂന്ന് ജെംസ്!' },
+        { label: 'Rare Gem +3', pts: 3, color: 0xfacc15, x: -24.0, z: 108.0, voice: 'കടൽപ്പാലത്തിൽ നിന്ന് അപൂർവ്വ രത്നം കിട്ടി! മൂന്ന് ജെംസ്!' },
+        { label: 'Rare Gem +3', pts: 3, color: 0xec4899, x: -105.0, z: -82.0, voice: 'ബേക്കൽ കോട്ടയിൽ നിന്ന് അപൂർവ്വ രത്നം കിട്ടി! മൂന്ന് ജെംസ്!' }
       ];
 
-      const sharedOrbGeo = new THREE.SphereGeometry(0.44, 12, 12);
+      // Sparkling Faceted 3D Gem Collectibles (💎 Octahedron Crystal + Golden Halo)
+      const sharedGemGeo = new THREE.OctahedronGeometry(0.52, 0);
+      const sharedHaloGeo = new THREE.RingGeometry(0.55, 0.72, 16);
+      sharedHaloGeo.rotateX(-Math.PI / 2);
       const collectibleItems = [];
       collectiblesData.forEach((c) => {
-        const mesh = new THREE.Mesh(sharedOrbGeo, new THREE.MeshStandardMaterial({ color: c.color, roughness: 0.3, metalness: 0.2 }));
-        mesh.position.set(c.x, 0.48, c.z);
-        scene.add(mesh);
+        const gemGroup = new THREE.Group();
+        const gemMat = new THREE.MeshStandardMaterial({
+          color: c.color,
+          emissive: c.color,
+          emissiveIntensity: 0.22,
+          roughness: 0.15,
+          metalness: 0.65,
+          flatShading: true
+        });
+        const gemMesh = new THREE.Mesh(sharedGemGeo, gemMat);
+        gemMesh.scale.set(0.88, 1.28, 0.88);
+        gemGroup.add(gemMesh);
 
-        const tagEl = createFloatingDomTag(c.label, 'item-tag-pill');
-        const itemObj = { mesh, el: tagEl, wx: c.x, wz: c.z, pts: c.pts, voice: c.voice, collected: false, respawnAt: 0 };
+        const halo = new THREE.Mesh(
+          sharedHaloGeo,
+          new THREE.MeshBasicMaterial({ color: 0xfef08a, side: THREE.DoubleSide, transparent: true, opacity: 0.55 })
+        );
+        halo.position.y = -0.45;
+        gemGroup.add(halo);
+
+        gemGroup.position.set(c.x, 0.75, c.z);
+        scene.add(gemGroup);
+
+        const gemLabel = '💎 ' + c.label.replace('+', '+') + ' Gems';
+        const tagEl = createFloatingDomTag(gemLabel, 'item-tag-pill');
+        const itemObj = { mesh: gemGroup, gemCrystal: gemMesh, el: tagEl, wx: c.x, wz: c.z, pts: c.pts, voice: c.voice.replace('പോയിന്റ്', 'ജെംസ്'), collected: false, respawnAt: 0 };
         collectibleItems.push(itemObj);
-        trackedLabels.push({ mesh, yOffset: 1.05, el: tagEl, itemRef: itemObj });
+        trackedLabels.push({ mesh: gemGroup, yOffset: 1.15, el: tagEl, itemRef: itemObj });
       });
+
+      // --- Cute Fluffy 3D Clouds Floating Across the Sky Dome ---
+      const cloudMat = new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.85, metalness: 0.02 });
+      const cuteClouds = [];
+      function createCuteCloud(wx, wz, altitude, scale = 1.0, speed = 1.2) {
+        const cGroup = new THREE.Group();
+        const puffs = [
+          [0, 0, 0, 2.6],
+          [-2.1, -0.25, 0.3, 1.95],
+          [2.1, -0.2, -0.2, 2.05],
+          [-0.9, 0.85, -0.4, 1.8],
+          [1.0, 0.75, 0.45, 1.75],
+          [0, -0.35, 1.2, 1.65]
+        ];
+        puffs.forEach(([px, py, pz, r]) => {
+          const puff = new THREE.Mesh(new THREE.SphereGeometry(r, 10, 10), cloudMat);
+          puff.position.set(px, py, pz);
+          puff.scale.y = 0.78;
+          cGroup.add(puff);
+        });
+        cGroup.scale.setScalar(scale);
+        cGroup.position.set(wx, altitude, wz);
+        scene.add(cGroup);
+        cuteClouds.push({ mesh: cGroup, wx, wz, baseY: altitude, speed });
+      }
+
+      [
+        [-95, -85, 15, 1.15, 1.1], [-35, -95, 17, 1.35, 0.9], [45, -80, 16, 1.1, 1.25],
+        [98, -45, 17, 1.3, 1.0], [-105, -15, 15, 1.0, 1.3], [-25, -20, 18, 1.4, 0.85],
+        [35, -10, 16, 1.15, 1.15], [88, 25, 17, 1.25, 0.95], [-85, 45, 16, 1.2, 1.05],
+        [-15, 55, 18, 1.45, 0.8], [52, 65, 15, 1.1, 1.2], [105, 85, 17, 1.3, 1.0],
+        [-55, 95, 16, 1.25, 1.1], [15, 105, 18, 1.35, 0.9], [-110, -105, 16, 1.2, 1.0],
+        [75, -110, 17, 1.25, 1.1]
+      ].forEach(([cx, cz, cy, sc, sp]) => createCuteCloud(cx, cz, cy, sc, sp));
+
+      // --- Rarely Flying Cute 3D Airplane with Spinning Propeller & Contrails ---
+      const airplaneGroup = new THREE.Group();
+      const fuselageMat = new THREE.MeshStandardMaterial({ color: 0xf8fafc, roughness: 0.3, metalness: 0.25 });
+      const wingAccentMat = new THREE.MeshStandardMaterial({ color: 0xef4444, roughness: 0.4 });
+      const fuselage = new THREE.Mesh(new THREE.CylinderGeometry(0.65, 0.52, 7.6, 12), fuselageMat);
+      fuselage.rotation.x = Math.PI / 2;
+      airplaneGroup.add(fuselage);
+
+      const noseCone = new THREE.Mesh(new THREE.ConeGeometry(0.65, 1.5, 12), wingAccentMat);
+      noseCone.rotation.x = Math.PI / 2;
+      noseCone.position.z = 4.55;
+      airplaneGroup.add(noseCone);
+
+      const mainWing = new THREE.Mesh(new THREE.BoxGeometry(10.8, 0.16, 1.65), fuselageMat);
+      mainWing.position.set(0, 0.1, 0.5);
+      airplaneGroup.add(mainWing);
+
+      const wingStripe = new THREE.Mesh(new THREE.BoxGeometry(10.85, 0.18, 0.35), wingAccentMat);
+      wingStripe.position.set(0, 0.1, 1.05);
+      airplaneGroup.add(wingStripe);
+
+      const tailWing = new THREE.Mesh(new THREE.BoxGeometry(3.6, 0.14, 0.95), wingAccentMat);
+      tailWing.position.set(0, 0.15, -3.3);
+      airplaneGroup.add(tailWing);
+
+      const tailFin = new THREE.Mesh(new THREE.BoxGeometry(0.16, 1.65, 1.35), wingAccentMat);
+      tailFin.position.set(0, 0.95, -3.2);
+      airplaneGroup.add(tailFin);
+
+      const propBlade = new THREE.Mesh(new THREE.BoxGeometry(2.2, 0.18, 0.08), darkWoodMat);
+      propBlade.position.z = 5.35;
+      airplaneGroup.add(propBlade);
+
+      // Trailing contrail puffs behind the wings
+      const contrailPuffs = [];
+      for (let cp = 0; cp < 6; cp++) {
+        const cPuff = new THREE.Mesh(
+          new THREE.SphereGeometry(0.38 - cp * 0.04, 6, 6),
+          new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.55 - cp * 0.07 })
+        );
+        cPuff.position.set(cp % 2 === 0 ? -2.4 : 2.4, 0, -1.5 - cp * 1.4);
+        airplaneGroup.add(cPuff);
+        contrailPuffs.push(cPuff);
+      }
+      airplaneGroup.position.set(-160, 42, -30);
+      airplaneGroup.rotation.y = Math.PI / 2.2;
+      airplaneGroup.visible = false;
+      scene.add(airplaneGroup);
+
+      // --- 3D Monsoon Rain Streaks (Active Automatically During Rain Weather) ---
+      const rainGroup = new THREE.Group();
+      const rainStreakGeo = new THREE.BufferGeometry();
+      const rainCount = 220;
+      const rainPositions = new Float32Array(rainCount * 6);
+      for (let r = 0; r < rainCount; r++) {
+        const rx = (Math.random() - 0.5) * 65;
+        const ry = Math.random() * 24;
+        const rz = (Math.random() - 0.5) * 65;
+        rainPositions[r * 6 + 0] = rx;
+        rainPositions[r * 6 + 1] = ry;
+        rainPositions[r * 6 + 2] = rz;
+        rainPositions[r * 6 + 3] = rx - 0.15;
+        rainPositions[r * 6 + 4] = ry - 1.25;
+        rainPositions[r * 6 + 5] = rz;
+      }
+      rainStreakGeo.setAttribute('position', new THREE.BufferAttribute(rainPositions, 3));
+      const rainLines = new THREE.LineSegments(
+        rainStreakGeo,
+        new THREE.LineBasicMaterial({ color: 0xbae6fd, transparent: true, opacity: 0.55 })
+      );
+      rainGroup.add(rainLines);
+      rainGroup.visible = false;
+      scene.add(rainGroup);
 
       // --- Detailed Multi-Frond Coconut Palms & Teak Trees (With Solid Trunk Colliders!) ---
       const palmTrunkMat = new THREE.MeshStandardMaterial({ color: 0x7c5333, roughness: 0.9 });
@@ -3112,7 +3805,6 @@
             state.player.vx = 0;
             state.player.vz = 0;
             markMemoryDiscovered(distObj.id);
-            addPoints(25);
 
             document.getElementById('hud-zone-badge').textContent = `${distObj.ml} (${distObj.badge})`;
             overlay.classList.add('hidden');
@@ -3344,66 +4036,222 @@
       // 11. STRICT WATER, POND, SEA & BRIDGE COLLISION ENGINE
       // =====================================================================
       function isPointInWater(x, z, isCar) {
-        if (Math.hypot(x - (-26.0), z - (-4.0)) < 5.4) return true;
-        if (z > -38.5 && z < -23.5) {
-          const onCentralBridge = Math.abs(x) <= 3.3;
-          const onEastBridge = x >= 44.7 && x <= 51.3;
-          if (!onCentralBridge && !onEastBridge) return true;
-        }
-        if (z > 103.5) {
-          const onWoodenPier = !isCar && x >= -26.0 && x <= -22.0 && z <= 124.5;
-          if (!onWoodenPier) return true;
-        }
+        const wx = wrapWorldCoord(x, LOOP_X);
+        const wz = wrapWorldCoord(z, LOOP_Z);
+        // Only the small circular village pond (Kulam) blocks movement; walking straight anywhere else loops around the ball!
+        if (Math.hypot(wx - (-26.0), wz - (-4.0)) < 4.9) return true;
         return false;
       }
 
       function computeGroundElevation(x, z) {
-        if (z > -39.0 && z < -23.0) {
-          if (Math.abs(x) <= 3.5 || (x >= 44.5 && x <= 51.5)) {
-            const t = 1 - Math.abs(z - (-31.0)) / 8.0;
-            return Math.max(0, t * 0.55);
+        const wx = wrapWorldCoord(x, LOOP_X);
+        const wz = wrapWorldCoord(z, LOOP_Z);
+        // 1. Canal Bridges at z = -31.0 (Central x=0, East x=48, West Pier x=-24)
+        if (wz >= -39.8 && wz <= -22.2) {
+          if (Math.abs(wx) <= 4.2 || Math.abs(wx - 48.0) <= 3.9 || Math.abs(wx - (-24.0)) <= 2.7) {
+            const normZ = Math.min(1, Math.abs(wz - (-31.0)) / 8.8);
+            const archT = Math.cos(normZ * Math.PI * 0.5);
+            return 0.08 + Math.max(0, archT) * 0.52;
           }
         }
-        if (x >= -26.2 && x <= -21.8 && z > 97.5 && z <= 125.0) {
-          return 0.55;
+        // 2. Coastal Sea Lagoon Bridges & Pier at z = 100.0 (Central x=0, East x=48, Wooden Pier x=-24)
+        if (wz >= 89.0 && wz <= 111.0) {
+          if (Math.abs(wx) <= 4.2 || Math.abs(wx - 48.0) <= 3.9 || Math.abs(wx - (-24.0)) <= 2.7) {
+            const normZ = Math.min(1, Math.abs(wz - 100.0) / 11.0);
+            const archT = Math.cos(normZ * Math.PI * 0.5);
+            return 0.08 + Math.max(0, archT) * 0.52;
+          }
         }
         return 0;
       }
 
       // =====================================================================
-      // 12. ENTER / EXIT CAR MECHANICS
+      // 12. VEHICLE SHOWROOM, PURCHASE & REALISTIC ENTER / EXIT MECHANICS
       // =====================================================================
+      function getActiveVehicleSpec() {
+        return showroomCatalog.find((v) => v.id === state.vehicle.activeModelId) || showroomCatalog[0];
+      }
+
       function enterCar() {
+        if (!state.vehicle.activeModelId || !state.vehicle.owned.has(state.vehicle.activeModelId)) {
+          openShowroomModal();
+          return;
+        }
+        const spec = getActiveVehicleSpec();
         state.drivingCar = true;
-        state.player.speed = 23.0;
-        document.getElementById('btn-exit-car').classList.remove('hidden');
-        document.getElementById('btn-exit-car').classList.add('flex');
+        state.vehicle.forwardSpeed = 0;
+        state.vehicle.steerAngle = 0;
+        state.vehicle.x = state.player.x;
+        state.vehicle.z = state.player.z;
+        state.vehicle.yaw = state.player.facingYaw;
+        carGroup.visible = true;
+
+        const exitBtn = document.getElementById('btn-exit-car');
+        exitBtn.querySelector('span').textContent = spec.category === 'bike' ? '🚪 Dismount Bike' : '🚪 Exit Vehicle';
+        exitBtn.classList.remove('hidden');
+        exitBtn.classList.add('flex');
         document.getElementById('interact-prompt').classList.add('hidden');
         soundEngine.playKsrtcHorn();
-        soundEngine.speakMalayalam('കാർ സ്റ്റാർട്ട് ചെയ്തു! ഇറങ്ങാൻ താഴെയുള്ള ചുവന്ന ബട്ടണിൽ തൊടുക അല്ലെങ്കിൽ E അമർത്തുക.', '🚗 കാർ');
+        soundEngine.speakMalayalam(`${spec.ml} സ്റ്റാർട്ട് ചെയ്തു! W/S ഉപയോഗിച്ച് ഓടിക്കാം, A/D ഉപയോഗിച്ച് പതുക്കെ തിരിക്കാം.`, spec.name);
       }
 
       function exitCar() {
         if (!state.drivingCar) return;
         state.drivingCar = false;
-        state.player.speed = 14.5;
+        state.vehicle.forwardSpeed = 0;
+        state.vehicle.steerAngle = 0;
+        state.player.speed = 15.0;
         const carLandmark = landmarks.find((l) => l.id === 'car_spot');
         if (carLandmark) {
           carLandmark.x = state.player.x;
           carLandmark.z = state.player.z;
+          const spec = getActiveVehicleSpec();
+          carLandmark.name = spec.name;
+          carLandmark.ml = spec.ml;
         }
+        state.vehicle.x = state.player.x;
+        state.vehicle.z = state.player.z;
         carGroup.position.set(state.player.x, state.player.y, state.player.z);
-        state.player.x += 2.6;
+        playerCharacter.userData.leftLeg.rotation.x = 0;
+        playerCharacter.userData.rightLeg.rotation.x = 0;
+        state.player.x += 2.4;
         state.dismissedLandmarkId = 'car_spot';
         document.getElementById('btn-exit-car').classList.add('hidden');
         document.getElementById('btn-exit-car').classList.remove('flex');
         soundEngine.playCollectChime();
-        showVoiceToast('🚗 കാർ', 'കാറിൽ നിന്ന് പുറത്തിറങ്ങി.');
+        showVoiceToast('🔑 Vehicle Parked', 'വാഹനത്തിൽ നിന്ന് പുറത്തിറങ്ങി.');
       }
 
       document.getElementById('btn-exit-car').addEventListener('click', (e) => {
         e.stopPropagation();
         exitCar();
+      });
+
+      function renderShowroomModal() {
+        const gemEl = document.getElementById('showroom-gem-count');
+        if (gemEl) gemEl.textContent = String(state.points);
+
+        const grid = document.getElementById('showroom-vehicles-grid');
+        if (!grid) return;
+        grid.innerHTML = '';
+
+        showroomCatalog.forEach((v) => {
+          const isOwned = state.vehicle.owned.has(v.id);
+          const isEquipped = state.vehicle.activeModelId === v.id && state.drivingCar;
+          const canAfford = state.points >= v.cost;
+
+          const card = document.createElement('button');
+          card.type = 'button';
+          card.className = `text-left p-3.5 rounded-2xl border transition flex flex-col justify-between gap-2 cursor-pointer ${
+            isEquipped
+              ? 'bg-cyan-500/25 border-cyan-300'
+              : isOwned
+              ? 'bg-emerald-900/40 border-emerald-400/50 hover:bg-emerald-900/60'
+              : 'bg-black/35 hover:bg-black/55 border-white/15'
+          }`;
+          card.innerHTML = `
+            <div>
+              <div class="flex items-center justify-between gap-1">
+                <span class="font-extrabold text-xs sm:text-sm text-white">${v.name}</span>
+                <span class="text-[10px] font-mono-ticket px-2 py-0.5 rounded-full font-bold ${
+                  isOwned ? 'bg-emerald-400/25 text-emerald-200' : 'bg-cyan-400/20 text-cyan-200'
+                }">${isOwned ? 'OWNED ✓' : '💎 ' + v.cost}</span>
+              </div>
+              <div class="text-xs font-ml text-amber-300 mt-0.5">${v.ml}</div>
+              <p class="text-[11px] text-emerald-100/80 mt-1 leading-snug">${v.desc}</p>
+            </div>
+            <div class="pt-2 border-t border-white/10 flex items-center justify-between text-[11px] font-mono-ticket">
+              <span class="text-emerald-200">Top Speed: ${Math.round(v.maxSpeed * 3.2)} km/h</span>
+              <span class="px-2.5 py-0.5 rounded-full font-bold ${
+                isOwned
+                  ? 'bg-emerald-500 text-emerald-950'
+                  : canAfford
+                  ? 'bg-amber-400 text-amber-950'
+                  : 'bg-rose-500/30 text-rose-200'
+              }">${isEquipped ? 'Driving 🔑' : isOwned ? 'Drive Now 🔑' : 'Buy (' + v.cost + ' 💎)'}</span>
+            </div>
+          `;
+
+          card.addEventListener('click', () => {
+            const fb = document.getElementById('showroom-feedback-text');
+            if (!state.vehicle.owned.has(v.id)) {
+              if (state.points < v.cost) {
+                soundEngine.playMarbleClick();
+                const needed = v.cost - state.points;
+                if (fb) fb.textContent = `❌ ആവശ്യത്തിന് ജെംസ് ഇല്ല! You need ${needed} more 💎 Gems for ${v.name}. Play Mini-Games to earn Gems!`;
+                soundEngine.speakMalayalam('ആവശ്യത്തിന് ജെംസ് ഇല്ല! മിനി ഗെയിമുകൾ കളിച്ച് ജെംസ് നേടൂ!', '🏎️ വാഹന ഷോറൂം');
+                return;
+              }
+              addPoints(-v.cost);
+              state.vehicle.owned.add(v.id);
+              soundEngine.playCollectChime();
+            }
+
+            state.vehicle.activeModelId = v.id;
+            buildVehicleSubGeometry(v.id, state.vehicle.color);
+            renderShowroomModal();
+
+            // Spawn vehicle outside Showroom and put player in driver's seat
+            const modal = document.getElementById('showroom-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+            state.player.x = 16.5;
+            state.player.z = 27.5;
+            state.player.facingYaw = Math.PI;
+            enterCar();
+            container.focus();
+          });
+
+          grid.appendChild(card);
+        });
+      }
+
+      function openShowroomModal() {
+        renderShowroomModal();
+        const m = document.getElementById('showroom-modal');
+        m.classList.remove('hidden');
+        m.classList.add('flex');
+      }
+
+      document.getElementById('btn-close-showroom').addEventListener('click', () => {
+        const m = document.getElementById('showroom-modal');
+        m.classList.add('hidden');
+        m.classList.remove('flex');
+        container.focus();
+      });
+
+      document.getElementById('btn-open-showroom-drawer').addEventListener('click', () => {
+        const gamesDrawer = document.getElementById('games-drawer');
+        gamesDrawer.classList.add('hidden');
+        gamesDrawer.classList.remove('flex');
+        openShowroomModal();
+      });
+
+      document.getElementById('btn-showroom-play-minigame').addEventListener('click', () => {
+        const m = document.getElementById('showroom-modal');
+        m.classList.add('hidden');
+        m.classList.remove('flex');
+        openMinigame('vadamvali');
+      });
+
+      document.querySelectorAll('.btn-vcolor').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const hex = btn.getAttribute('data-vcolor') || '#dc2626';
+          state.vehicle.color = hex;
+          document.getElementById('input-vehicle-color').value = hex;
+          if (state.vehicle.activeModelId) {
+            buildVehicleSubGeometry(state.vehicle.activeModelId, hex);
+          }
+          soundEngine.playMarbleClick();
+        });
+      });
+
+      document.getElementById('input-vehicle-color').addEventListener('input', (e) => {
+        const hex = e.target.value || '#dc2626';
+        state.vehicle.color = hex;
+        if (state.vehicle.activeModelId) {
+          buildVehicleSubGeometry(state.vehicle.activeModelId, hex);
+        }
       });
 
       // =====================================================================
@@ -3413,6 +4261,8 @@
         state.points = Math.max(0, state.points + delta);
         document.getElementById('hud-tokens').textContent = String(state.points);
         document.getElementById('shop-token-count').textContent = String(state.points);
+        const srGem = document.getElementById('showroom-gem-count');
+        if (srGem) srGem.textContent = String(state.points);
 
         const dEntry = kerala14Districts.find((d) => d.ml === state.playerDistrict) || kerala14Districts[10];
         dEntry.pts = Math.max(0, dEntry.pts + delta);
@@ -3430,19 +4280,105 @@
         if (countEl) countEl.textContent = `${Math.min(14, state.discoveredMemories.size)} / 14`;
       }
 
+      const weatherStates = [
+        { id: 'sunny', label: 'Sunny Sky', icon: '☀️', voiceMl: 'നല്ല തെളിഞ്ഞ വെയിൽ പരക്കുന്നു!' },
+        { id: 'cloudy', label: 'Fluffy Clouds', icon: '⛅', voiceMl: 'ആകാശത്ത് മനോഹരമായ മേഘങ്ങൾ ഒഴുകി നടക്കുന്നു!' },
+        { id: 'breeze', label: 'Golden Breeze', icon: '🍃', voiceMl: 'നല്ല തണുത്ത കാറ്റ് വീശുന്നു!' },
+        { id: 'monsoon', label: 'Monsoon Rain', icon: '🌧️', voiceMl: 'കനാൽപ്പുഴയിൽ മനോഹരമായ മഴ തുടങ്ങി!' }
+      ];
+
       function setWeatherMode(mode) {
-        state.weather = mode;
-        if (mode === 'monsoon') {
-          scene.background.setHex(0x8fa89b);
-          scene.fog.color.setHex(0x8fa89b);
-          sunLight.intensity = 0.6;
-          soundEngine.speakMalayalam('കനാൽപ്പുഴയിൽ മനോഹരമായ മഴ തുടങ്ങി!', '🌧️ കാലാവസ്ഥ');
-        } else {
-          scene.background.setHex(0xcbe5d0);
-          scene.fog.color.setHex(0xcbe5d0);
-          sunLight.intensity = 0.95;
-          soundEngine.speakMalayalam('നല്ല തെളിഞ്ഞ വെയിൽ പരക്കുന്നു!', '☀️ കാലാവസ്ഥ');
+        const wObj = weatherStates.find((w) => w.id === mode) || weatherStates[0];
+        state.weather = wObj.id;
+        state.weatherLabel = wObj.label;
+        state.weatherIcon = wObj.icon;
+        rainGroup.visible = state.weather === 'monsoon';
+        const wTextEl = document.getElementById('hud-weather-text');
+        if (wTextEl) wTextEl.textContent = wObj.label;
+      }
+
+      const skyColorDay = new THREE.Color(0xc5ebd3);
+      const skyColorSunset = new THREE.Color(0xf4b68c);
+      const skyColorNight = new THREE.Color(0x0f1f36);
+      const skyColorRain = new THREE.Color(0x7c988c);
+      const currentSkyColor = new THREE.Color(0xc5ebd3);
+
+      function updateAutomaticTimeAndWeather(dt) {
+        // 1. Automatic Game Clock (24h cycle every ~3.5 real minutes)
+        state.timeOfDay = (state.timeOfDay + dt * 0.115) % 24.0;
+        const hrs24 = Math.floor(state.timeOfDay);
+        const mins = Math.floor((state.timeOfDay - hrs24) * 60);
+        const ampm = hrs24 >= 12 ? 'PM' : 'AM';
+        const hrs12 = hrs24 % 12 === 0 ? 12 : hrs24 % 12;
+        const clockStr = `${String(hrs12).padStart(2, '0')}:${String(mins).padStart(2, '0')} ${ampm}`;
+        const clockEl = document.getElementById('hud-clock-text');
+        if (clockEl) clockEl.textContent = clockStr;
+
+        // 2. Automatic Weather Cycle (Not controlled by player — changes every 45s)
+        state.weatherTimer -= dt;
+        if (state.weatherTimer <= 0) {
+          state.weatherTimer = 45.0;
+          state.weatherIndex = (state.weatherIndex + 1) % weatherStates.length;
+          const nextW = weatherStates[state.weatherIndex];
+          setWeatherMode(nextW.id);
+          if (state.started) {
+            soundEngine.speakMalayalam(nextW.voiceMl, `${nextW.icon} Weather Update`);
+          }
         }
+
+        // 3. Smooth Day / Sunset / Night Color Grading & Sun/Moon Lighting
+        const t = state.timeOfDay;
+        let phaseIcon = state.weatherIcon;
+        let targetSunIntensity = 1.08;
+
+        if (t >= 6.5 && t < 16.0) {
+          // Daytime
+          currentSkyColor.copy(skyColorDay);
+          targetSunIntensity = 1.12;
+          sunLight.color.setHex(0xfff1c2);
+          ambientFill.intensity = 0.65;
+        } else if (t >= 16.0 && t < 18.8) {
+          // Golden Hour Sunset
+          const u = (t - 16.0) / 2.8;
+          currentSkyColor.copy(skyColorDay).lerp(skyColorSunset, Math.sin(u * Math.PI));
+          if (u > 0.5) currentSkyColor.lerp(skyColorNight, (u - 0.5) * 1.4);
+          targetSunIntensity = 0.92 - u * 0.45;
+          sunLight.color.setHex(0xffb46b);
+          ambientFill.intensity = 0.52;
+          phaseIcon = '🌇';
+        } else if (t >= 18.8 || t < 5.2) {
+          // Starry Kerala Night
+          currentSkyColor.copy(skyColorNight);
+          targetSunIntensity = 0.32;
+          sunLight.color.setHex(0x93c5fd);
+          ambientFill.intensity = 0.38;
+          phaseIcon = '🌙';
+        } else {
+          // Misty Dawn (5.2 to 6.5)
+          const u = (t - 5.2) / 1.3;
+          currentSkyColor.copy(skyColorNight).lerp(skyColorSunset, u * 0.7).lerp(skyColorDay, u);
+          targetSunIntensity = 0.35 + u * 0.75;
+          sunLight.color.setHex(0xffd2a6);
+          ambientFill.intensity = 0.55;
+          phaseIcon = '🌅';
+        }
+
+        if (state.weather === 'monsoon') {
+          currentSkyColor.lerp(skyColorRain, 0.55);
+          targetSunIntensity *= 0.65;
+          phaseIcon = '🌧️';
+        }
+
+        const iconEl = document.getElementById('hud-time-icon');
+        if (iconEl) iconEl.textContent = phaseIcon;
+
+        scene.background.copy(currentSkyColor);
+        scene.fog.color.copy(currentSkyColor);
+        sunLight.intensity += (targetSunIntensity - sunLight.intensity) * Math.min(1, dt * 3);
+
+        // Orbit sun position across the sky arc
+        const sunAngle = ((t - 6.0) / 12.0) * Math.PI;
+        sunLight.position.set(Math.cos(sunAngle) * -85, Math.max(18, Math.sin(sunAngle) * 95), 58);
       }
 
       // =====================================================================
@@ -3451,22 +4387,22 @@
       const shopCatalog = {
         chayakkada: {
           title: '☕ കുട്ടേട്ടന്റെ ചായ കട (Chayakkada)',
-          sub: 'നല്ല ചൂട് മീറ്റർ ചായയും പരിപ്പുവടയും പഴംപൊരിയും!',
+          sub: 'നല്ല ചൂട് മീറ്റർ ചായയും നാടൻ കാപ്പിയും പലഹാരങ്ങളും! (Spend Gems to enjoy)',
           items: [
-            { name: 'മീറ്റർ ചായ (Meter Chaya)', pts: 20, desc: 'Steaming frothy tea poured from the brass samovar!', voice: 'നല്ല ചൂട് മീറ്റർ ചായ ഇതാ പിടിച്ചോ!' },
-            { name: 'പരിപ്പുവട (Parippuvada)', pts: 15, desc: 'Crispy golden lentil fritters with green chilli.', voice: 'നല്ല മൊരിഞ്ഞ പരിപ്പുവട!' },
-            { name: 'പഴംപൊരി (Pazhampori)', pts: 25, desc: 'Sweet ripe Nendran banana fritters fresh from the pan.', voice: 'നല്ല മധുരമുള്ള പഴംപൊരി!' },
-            { name: 'അച്ചപ്പം (Achappam)', pts: 15, desc: 'Crunchy traditional rose cookies from the glass jar.', voice: 'നല്ല നാടൻ അച്ചപ്പം!' }
+            { name: 'മീറ്റർ ചായ (Hot Meter Chaya)', cost: 5, desc: 'Steaming frothy tea poured from the brass samovar! (+Speed Boost)', voice: 'നല്ല ചൂട് മീറ്റർ ചായ ഇതാ പിടിച്ചോ!' },
+            { name: 'നാടൻ കാപ്പി (Filter Coffee)', cost: 6, desc: 'Rich roasted Wayanad filter coffee with frothy milk! (+Speed Boost)', voice: 'നല്ല ചൂട് നാടൻ കാപ്പി ഇതാ പിടിച്ചോ!' },
+            { name: 'പരിപ്പുവട (Parippuvada)', cost: 8, desc: 'Crispy golden lentil fritters with ginger & green chilli.', voice: 'നല്ല മൊരിഞ്ഞ പരിപ്പുവട!' },
+            { name: 'പഴംപൊരി (Pazhampori)', cost: 10, desc: 'Sweet ripe Nendran banana fritters fresh from the pan.', voice: 'നല്ല മധുരമുള്ള പഴംപൊരി!' }
           ]
         },
         pettikkada: {
           title: '🧃 മലപ്പുറം ജ്യൂസ് കട & പെട്ടിക്കട',
-          sub: 'നല്ല തണുത്ത ഗോലി സോഡയും സർബത്തും തേൻമിഠായിയും!',
+          sub: 'നല്ല തണുത്ത ഗോലി സോഡയും സർബത്തും ചുക്ക് കാപ്പിയും! (Spend Gems to enjoy)',
           items: [
-            { name: 'ഗോലി സോഡ (Chilled Goli Soda)', pts: 25, desc: 'Pop the marble stopper for fizzy lemon refreshment!', voice: 'നല്ല തണുത്ത ഗോലി സോഡ!' },
-            { name: 'നന്നാറി സർബത്ത് (Nannari Sarbath)', pts: 20, desc: 'Cool sarsaparilla syrup with lime and basil seeds.', voice: 'നല്ല തണുത്ത കുലുക്കി സർബത്ത്!' },
-            { name: 'തേൻമിഠായി (Thaen Mittayi)', pts: 15, desc: 'Sweet nostalgic honey-filled orange candies.', voice: 'മധുരമുള്ള തേൻമിഠായി എടുത്തോളൂ!' },
-            { name: 'നാരങ്ങ മിഠായി (Naranga Mittayi)', pts: 10, desc: 'Tangy classic orange pocket candies.', voice: 'നാരങ്ങ മിഠായി ഇതാ!' }
+            { name: 'ഗോലി സോഡ (Chilled Goli Soda)', cost: 8, desc: 'Pop the marble stopper for fizzy lemon refreshment!', voice: 'നല്ല തണുത്ത ഗോലി സോഡ!' },
+            { name: 'നന്നാറി സർബത്ത് (Nannari Sarbath)', cost: 7, desc: 'Cool sarsaparilla syrup with lime and basil seeds.', voice: 'നല്ല തണുത്ത കുലുക്കി സർബത്ത്!' },
+            { name: 'ചുക്ക് കാപ്പി (Spiced Black Coffee)', cost: 6, desc: 'Hot dry-ginger & pepper spiced Kerala black coffee.', voice: 'നല്ല ചൂട് ചുക്ക് കാപ്പി!' },
+            { name: 'തേൻമിഠായി (Thaen Mittayi)', cost: 5, desc: 'Sweet nostalgic honey-filled orange candies.', voice: 'മധുരമുള്ള തേൻമിഠായി എടുത്തോളൂ!' }
           ]
         }
       };
@@ -3476,6 +4412,7 @@
         const modal = document.getElementById('shop-modal');
         document.getElementById('shop-modal-title').textContent = data.title;
         document.getElementById('shop-modal-sub').textContent = data.sub;
+        document.getElementById('shop-token-count').textContent = String(state.points);
         const gridEl = document.getElementById('shop-items-grid');
         gridEl.innerHTML = '';
 
@@ -3489,15 +4426,22 @@
               <p class="text-[11px] text-emerald-100/80 mt-1">${item.desc}</p>
             </div>
             <div class="flex items-center justify-between text-[11px] font-mono-ticket pt-1.5 border-t border-white/10">
-              <span class="text-amber-300 font-bold">+${item.pts} Points</span>
-              <span class="bg-emerald-500 text-emerald-950 font-bold px-2.5 py-0.5 rounded-full">Taste ☕</span>
+              <span class="text-amber-300 font-bold">Cost: -${item.cost} Gems 💎</span>
+              <span class="bg-emerald-500 text-emerald-950 font-bold px-2.5 py-0.5 rounded-full">Buy &amp; Drink ☕</span>
             </div>
           `;
           card.addEventListener('click', () => {
-            addPoints(item.pts);
+            if (state.points < item.cost) {
+              soundEngine.playMarbleClick();
+              document.getElementById('shop-feedback').textContent = `❌ ആവശ്യത്തിന് ജെംസ് ഇല്ല! (Need ${item.cost} 💎 Gems — Play Mini-Games to earn Gems!)`;
+              soundEngine.speakMalayalam('ആവശ്യത്തിന് ജെംസ് ഇല്ല! മിനി ഗെയിമുകൾ കളിച്ച് ജെംസ് നേടൂ!', '☕ ചായ കട');
+              return;
+            }
+            addPoints(-item.cost);
+            state.player.speed = 18.5;
             soundEngine.playMeterChayaPour();
             soundEngine.speakMalayalam(item.voice, '☕ ചായ കട');
-            document.getElementById('shop-feedback').textContent = `${item.name} ആസ്വദിച്ചു! (+${item.pts} Points added to ${state.playerDistrict})`;
+            document.getElementById('shop-feedback').textContent = `☕ ${item.name} ആസ്വദിച്ചു! (-${item.cost} Gems 💎 spent • Energy Speed Boost Active!)`;
           });
           gridEl.appendChild(card);
         });
@@ -3614,7 +4558,7 @@
               addPoints(50);
               soundEngine.playWhistle(true);
               soundEngine.speakMalayalam('വടംവലി മത്സരത്തിൽ നിങ്ങളുടെ ടീം ഉജ്ജ്വല വിജയം നേടിയിരിക്കുന്നു! അമ്പത് പോയിന്റ്!', '🏆 വടംവലി വിജയം');
-              document.getElementById('mg-status-text').textContent = '🏆 VICTORY! +50 Points added to your district!';
+              document.getElementById('mg-status-text').textContent = '🏆 VICTORY! +50 Gems 💎 added to your district!';
             }
           }
           document.getElementById('vv-stamina-bar').style.width = Math.round(vvState.stamina) + '%';
@@ -3702,7 +4646,7 @@
                 if (valState.checkpoints >= 6) {
                   valState.finished = true; addPoints(50);
                   soundEngine.speakMalayalam('വള്ളംകളിയിൽ ഉജ്ജ്വല വിജയം! അമ്പത് പോയിന്റ്!', '🏆 വള്ളംകളി');
-                  document.getElementById('mg-status-text').textContent = `🏆 FINISHED in ${valState.elapsed.toFixed(1)}s! +50 Points!`;
+                  document.getElementById('mg-status-text').textContent = `🏆 FINISHED in ${valState.elapsed.toFixed(1)}s! +50 Gems 💎!`;
                 }
               }
             });
@@ -3793,11 +4737,11 @@
             t.x += t.vx; t.y += t.vy; t.vx *= 0.94; t.vy *= 0.94;
             if (Math.hypot(t.x - 300, t.y - 110) > 68) {
               t.out = true; addPoints(15); soundEngine.playCollectChime();
-              document.getElementById('mg-status-text').textContent = '🎯 Marble knocked out! +15 Points!';
+              document.getElementById('mg-status-text').textContent = '🎯 Marble knocked out! +15 Gems 💎!';
             } else rem++;
           });
           if (rem === 0) {
-            document.getElementById('mg-status-text').textContent = '🏆 All 5 Marbles Cleared! +50 Bonus Points!';
+            document.getElementById('mg-status-text').textContent = '🏆 All 5 Marbles Cleared! +50 Bonus Gems 💎!';
           }
           document.getElementById('goli-remaining').textContent = String(rem);
           document.getElementById('goli-shots').textContent = String(goliState.shots);
@@ -3859,7 +4803,7 @@
             if (thengaState.coconut.y >= 190 && thengaState.coconut.y <= 232 && Math.abs(thengaState.coconut.x - thengaState.basketX) < 38) {
               thengaState.score++; addPoints(30); soundEngine.playCollectChime();
               soundEngine.speakMalayalam('കൃത്യമായി കുട്ടയിൽ വീണു! മുപ്പത് പോയിന്റ്!', '🥥 തേങ്ങയിടൽ');
-              document.getElementById('mg-status-text').textContent = '🥥 BASKETS SCORED! +30 Points!';
+              document.getElementById('mg-status-text').textContent = '🥥 BASKETS SCORED! +30 Gems 💎!';
               thengaState.coconut = null;
             } else if (thengaState.coconut.y > 250 || thengaState.coconut.x > 600) {
               thengaState.coconut = null;
@@ -4029,7 +4973,7 @@
             state.lookDrag.lastX = t.clientX;
             state.lookDrag.lastY = t.clientY;
             state.cam.yaw -= dx * 0.0065;
-            state.cam.pitch = Math.max(0.16, Math.min(0.88, state.cam.pitch + dy * 0.005));
+            state.cam.pitch = Math.max(-0.42, Math.min(0.72, state.cam.pitch + dy * 0.005));
             break;
           }
         }
@@ -4047,6 +4991,7 @@
       domCanvas.addEventListener('touchend', endCanvasTouch, { passive: false });
       domCanvas.addEventListener('touchcancel', endCanvasTouch, { passive: false });
 
+      // DESKTOP FREE-MOUSE LOOK: No need to hold left-click on desktop! Simply moving the mouse rotates the camera!
       domCanvas.addEventListener('pointerdown', (e) => {
         if (e.pointerType === 'touch') return;
         soundEngine.init();
@@ -4055,17 +5000,39 @@
         state.lookDrag.pointerId = e.pointerId;
         state.lookDrag.lastX = e.clientX;
         state.lookDrag.lastY = e.clientY;
+        state.lookDrag.hoverX = e.clientX;
+        state.lookDrag.hoverY = e.clientY;
       });
 
       window.addEventListener('pointermove', (e) => {
         if (e.pointerType === 'touch') return;
-        if (!state.lookDrag.active || e.pointerId !== state.lookDrag.pointerId) return;
-        const dx = e.clientX - state.lookDrag.lastX;
-        const dy = e.clientY - state.lookDrag.lastY;
-        state.lookDrag.lastX = e.clientX;
-        state.lookDrag.lastY = e.clientY;
-        state.cam.yaw -= dx * 0.0055;
-        state.cam.pitch = Math.max(0.15, Math.min(0.88, state.cam.pitch + dy * 0.0045));
+        if (state.lookDrag.active && e.pointerId === state.lookDrag.pointerId) {
+          const dx = e.clientX - state.lookDrag.lastX;
+          const dy = e.clientY - state.lookDrag.lastY;
+          state.lookDrag.lastX = e.clientX;
+          state.lookDrag.lastY = e.clientY;
+          state.lookDrag.hoverX = e.clientX;
+          state.lookDrag.hoverY = e.clientY;
+          state.cam.yaw -= dx * 0.0055;
+          state.cam.pitch = Math.max(-0.42, Math.min(0.72, state.cam.pitch + dy * 0.0045));
+          return;
+        }
+        // Free mouse look when cursor moves over the 3D canvas without holding any button
+        if (state.started && !state.activeMinigame && e.target === domCanvas) {
+          if (state.lookDrag.hoverX !== null && state.lookDrag.hoverY !== null) {
+            const dx = e.clientX - state.lookDrag.hoverX;
+            const dy = e.clientY - state.lookDrag.hoverY;
+            if (Math.abs(dx) < 90 && Math.abs(dy) < 90) {
+              state.cam.yaw -= dx * 0.0044;
+              state.cam.pitch = Math.max(-0.42, Math.min(0.72, state.cam.pitch + dy * 0.0032));
+            }
+          }
+          state.lookDrag.hoverX = e.clientX;
+          state.lookDrag.hoverY = e.clientY;
+        } else {
+          state.lookDrag.hoverX = e.clientX;
+          state.lookDrag.hoverY = e.clientY;
+        }
       });
 
       window.addEventListener('pointerup', (e) => {
@@ -4087,19 +5054,19 @@
       function cycleCameraView() {
         state.cameraPreset = (state.cameraPreset + 1) % 3;
         if (state.cameraPreset === 0) {
-          state.cam.pitch = 0.43;
-          state.cam.distance = 14.5;
+          state.cam.pitch = 0.11;
+          state.cam.distance = 13.2;
         } else if (state.cameraPreset === 1) {
-          state.cam.pitch = 0.25;
+          state.cam.pitch = -0.05;
           state.cam.distance = 8.5;
         } else {
-          state.cam.pitch = 0.62;
-          state.cam.distance = 22.0;
+          state.cam.pitch = 0.35;
+          state.cam.distance = 20.0;
         }
       }
 
       function guideWhereToNext() {
-        const order = ['boutique', 'railway', 'edakkal', 'chayakkada', 'pettikkada', 'canal', 'club', 'goli_spot', 'thenga_spot', 'beach'];
+        const order = ['showroom', 'boutique', 'railway', 'edakkal', 'chayakkada', 'pettikkada', 'canal', 'club', 'goli_spot', 'thenga_spot', 'beach'];
         const targetId = order[state.whereNextIndex % order.length];
         state.whereNextIndex++;
         teleportToLandmark(targetId);
@@ -4145,7 +5112,10 @@
         const lm = state.nearLandmark || landmarks[1];
         markMemoryDiscovered(lm.id);
 
-        if (lm.actionType === 'wardrobe') {
+        if (lm.actionType === 'showroom') {
+          soundEngine.speakMalayalam(lm.voiceMl, lm.npcName);
+          openShowroomModal();
+        } else if (lm.actionType === 'wardrobe') {
           soundEngine.speakMalayalam(lm.voiceMl, lm.npcName);
           openWardrobeModal();
         } else if (lm.actionType === 'railway') {
@@ -4168,7 +5138,6 @@
         } else if (lm.actionType === 'online_player') {
           openSystemModal();
         } else if (lm.actionType === 'commentary') {
-          addPoints(10);
           soundEngine.playCollectChime();
           soundEngine.speakMalayalam(lm.voiceMl, lm.npcName);
         } else if (lm.actionType === 'minigame' && lm.minigameId) {
@@ -4291,9 +5260,36 @@
         openRailwayModal();
       });
 
-      document.getElementById('btn-drawer-weather').addEventListener('click', () => {
-        setWeatherMode(state.weather === 'golden' ? 'monsoon' : 'golden');
+      function openLeaderboardModal() {
+        renderLeaderboardModal();
+        const m = document.getElementById('leaderboard-modal');
+        if (m) {
+          m.classList.remove('hidden');
+          m.classList.add('flex');
+        }
+      }
+      ['btn-open-leaderboard-pill', 'btn-open-leaderboard-top', 'btn-drawer-leaderboard'].forEach((id) => {
+        const el = document.getElementById(id);
+        if (el) {
+          el.addEventListener('click', () => {
+            gamesDrawer.classList.add('hidden');
+            gamesDrawer.classList.remove('flex');
+            openLeaderboardModal();
+          });
+        }
       });
+      const btnCloseLb = document.getElementById('btn-close-leaderboard');
+      if (btnCloseLb) {
+        btnCloseLb.addEventListener('click', () => {
+          const m = document.getElementById('leaderboard-modal');
+          if (m) {
+            m.classList.add('hidden');
+            m.classList.remove('flex');
+          }
+          container.focus();
+        });
+      }
+      document.getElementById('btn-drawer-weather').addEventListener('click', () => { showVoiceToast(state.weatherIcon, state.weatherLabel); });
       document.getElementById('btn-drawer-voice').addEventListener('click', () => {
         soundEngine.setMuted(state.audioEnabled);
         showVoiceToast('🎙️ Audio', state.audioEnabled ? 'Malayalam Commentary Enabled' : 'Audio Muted');
@@ -4403,13 +5399,6 @@
       // =====================================================================
       let prevTime = performance.now();
       const projVec = new THREE.Vector3();
-      const seaPosAttr = seaGeo.attributes.position;
-      const seaOrigX = new Float32Array(seaPosAttr.count);
-      const seaOrigZ = new Float32Array(seaPosAttr.count);
-      for (let i = 0; i < seaPosAttr.count; i++) {
-        seaOrigX[i] = seaPosAttr.getX(i);
-        seaOrigZ[i] = seaPosAttr.getZ(i);
-      }
 
       // "Therikkum" (തെറിച്ചു വീഴും) Ragdoll Knockback Launch Trigger
       function triggerTherikkumAccident(vehicleNameMl, hitX, hitZ, power = 1.0, isTrain = false) {
@@ -4455,19 +5444,21 @@
       function resolveSolidWorldCollisions(nextX, nextZ) {
         let rx = nextX;
         let rz = nextZ;
-        // 1. All Buildings, Trees, Edakkal Guha Boulders, Forts, Lighthouses & Signboards
+        // 1. All Buildings, Trees, Edakkal Guha Boulders, Forts, Lighthouses & Signboards (Wrapped on Globe!)
         for (let i = 0; i < buildingColliders.length; i++) {
           const col = buildingColliders[i];
-          const dx = rx - col.x;
-          const dz = rz - col.z;
+          const dx = wrapDelta(rx - col.x, LOOP_X);
+          const dz = wrapDelta(rz - col.z, LOOP_Z);
           const dist = Math.hypot(dx, dz);
           if (dist < col.r && dist > 0.0001) {
-            rx = col.x + (dx / dist) * col.r;
-            rz = col.z + (dz / dist) * col.r;
+            const pushX = (dx / dist) * col.r;
+            const pushZ = (dz / dist) * col.r;
+            rx = (rx - dx) + pushX;
+            rz = (rz - dz) + pushZ;
           }
         }
-        // 2. Stationary Ambassador Car Collider when walking on foot
-        if (!state.drivingCar) {
+        // 2. Stationary Parked Vehicle Collider when walking on foot
+        if (!state.drivingCar && carGroup.visible) {
           const cdx = rx - carGroup.position.x;
           const cdz = rz - carGroup.position.z;
           const cDist = Math.hypot(cdx, cdz);
@@ -4492,48 +5483,83 @@
           state.cameraShake = Math.max(0, state.cameraShake - dt * 1.1);
         }
 
-        // 1. Dynamic Arabian Sea Waves + Spherical Globe Curvature
-        for (let i = 0; i < seaPosAttr.count; i++) {
-          const vx = seaOrigX[i];
-          const vz = seaOrigZ[i];
-          const wx = vx;
-          const wz = vz + 398.0;
-          const wy = Math.sin(vx * 0.12 + tSec * 2.2) * 0.38 + Math.cos(vz * 0.09 + tSec * 1.8) * 0.30;
-          seaPosAttr.setY(i, wy + getSphereDrop(wx, wz));
+        // 0. Automatic Time of Day, Day/Night Cycle & Automatic Weather Engine
+        updateAutomaticTimeAndWeather(dt);
+
+        // Animate Monsoon Rain around the player when active
+        if (rainGroup.visible) {
+          rainGroup.position.set(state.player.x, state.player.y, state.player.z);
+          const rPos = rainStreakGeo.attributes.position;
+          for (let r = 0; r < rainCount; r++) {
+            let y1 = rPos.getY(r * 2) - 26.0 * dt;
+            if (y1 < 0) y1 += 24.0;
+            rPos.setY(r * 2, y1);
+            rPos.setY(r * 2 + 1, y1 - 1.25);
+          }
+          rPos.needsUpdate = true;
         }
-        seaPosAttr.needsUpdate = true;
 
-        // Animated translucent white seafoam washing onto Kozhikode beach sand
-        const tideShift = Math.sin(tSec * 2.0) * 1.35;
-        seaFoamLine1.position.z = 103.2 + tideShift;
-        seaFoamLine1.material.opacity = 0.45 + Math.sin(tSec * 2.0) * 0.25;
-        seaFoamLine2.position.z = 100.8 + tideShift * 0.7;
+        // Animate Cute Fluffy 3D Clouds & Rare 3D Airplane Flyovers
+        const invR = state.sphereWorldEnabled ? (1.0 / state.sphereRadius) : 0;
+        for (let c = 0; c < cuteClouds.length; c++) {
+          const cl = cuteClouds[c];
+          cl.wx = wrapWorldCoord(cl.wx + cl.speed * dt, LOOP_X);
+          const rx = state.player.x + wrapDelta(cl.wx - state.player.x, LOOP_X);
+          const rz = state.player.z + wrapDelta(cl.wz - state.player.z, LOOP_Z);
+          const cDrop = getSphereDrop(rx, rz);
+          cl.mesh.position.set(rx, cl.baseY + cDrop * 0.65 + Math.sin(tSec * 0.8 + c) * 0.35, rz);
+        }
 
-        // 2. Update Subdivided Spherical Ground, Roads, Tracks, Beach & Canal
+        if (!state.airplaneActive) {
+          state.airplaneTimer -= dt;
+          if (state.airplaneTimer <= 0) {
+            state.airplaneActive = true;
+            airplaneGroup.visible = true;
+            airplaneGroup.position.set(state.player.x - 105, 16.8, state.player.z - 28);
+          }
+        } else {
+          airplaneGroup.position.x += 22.0 * dt;
+          airplaneGroup.position.z += 4.2 * dt;
+          const pDrop = getSphereDrop(airplaneGroup.position.x, airplaneGroup.position.z);
+          airplaneGroup.position.y = 16.8 + pDrop * 0.45;
+          propBlade.rotation.z += 38.0 * dt;
+          if (airplaneGroup.position.x > state.player.x + 115) {
+            state.airplaneActive = false;
+            airplaneGroup.visible = false;
+            state.airplaneTimer = 28.0 + Math.random() * 14.0;
+          }
+        }
+
+        // 1 & 2. Curve Stationary 3x3 Ball World Terrain, Roads, Canal, Tracks & Beach Lagoon
+        // Meshes stay 100% fixed in world coordinates (NO sliding road lines!) while curving over the 3D ball!
         for (let m = 0; m < curvedTerrainMeshes.length; m++) {
           const tm = curvedTerrainMeshes[m];
           const pos = tm.pos;
           const ox = tm.origX;
+          const oy = tm.origY;
           const oz = tm.origZ;
-          const cx = tm.mesh.position.x;
-          const cz = tm.mesh.position.z;
+          const cx = tm.centerX;
+          const cz = tm.centerZ;
+          const baseY = tm.baseY;
           for (let i = 0; i < pos.count; i++) {
-            const wx = cx + ox[i];
-            const wz = cz + oz[i];
-            pos.setY(i, getSphereDrop(wx, wz));
+            const dx = (cx + ox[i]) - state.player.x;
+            const dz = (cz + oz[i]) - state.player.z;
+            const drop = state.sphereWorldEnabled ? -((dx * dx + dz * dz) / (2.0 * state.sphereRadius)) : 0;
+            pos.setY(i, baseY + oy[i] + drop);
           }
           pos.needsUpdate = true;
         }
 
-        // 3. Update All Registered 3D World Objects onto the Spherical Surface + Normal Tilt
-        const invR = state.sphereWorldEnabled ? (1.0 / state.sphereRadius) : 0;
+        // 3. Update All Registered 3D World Objects onto the Seamless Looping Ball
         for (let i = 0; i < sphereWorldObjects.length; i++) {
           const item = sphereWorldObjects[i];
-          const drop = getSphereDrop(item.wx, item.wz);
-          item.mesh.position.y = item.baseY + drop;
+          const dx = wrapDelta(item.wx - state.player.x, LOOP_X);
+          const dz = wrapDelta(item.wz - state.player.z, LOOP_Z);
+          const rx = state.player.x + dx;
+          const rz = state.player.z + dz;
+          const drop = state.sphereWorldEnabled ? -((dx * dx + dz * dz) / (2.0 * state.sphereRadius)) : 0;
+          item.mesh.position.set(rx, item.baseY + drop, rz);
           if (state.sphereWorldEnabled && item.tiltScale > 0) {
-            const dx = item.wx - state.player.x;
-            const dz = item.wz - state.player.z;
             item.mesh.rotation.x = item.baseRx + (dz * invR) * item.tiltScale;
             item.mesh.rotation.z = item.baseRz - (dx * invR) * item.tiltScale;
           } else {
@@ -4542,7 +5568,7 @@
           }
         }
 
-        // Coconut Frond Wind Sway + Chayakkada Steam + Bobbing Vallams
+        // Coconut Frond Wind Sway + Chayakkada Steam + Bobbing Vallams (Wrapped on Ball)
         for (let i = 0; i < palmCrowns.length; i++) {
           const p = palmCrowns[i];
           p.mesh.rotation.z = Math.sin(tSec * 1.8 + p.phase) * 0.085;
@@ -4553,21 +5579,24 @@
         }
         for (let i = 0; i < vallamMeshes.length; i++) {
           const vm = vallamMeshes[i];
-          const vDrop = getSphereDrop(vm.wx, vm.wz);
-          vm.mesh.position.y = vDrop + 0.08 + Math.sin(tSec * 2.1 + i) * 0.065;
+          const dx = wrapDelta(vm.wx - state.player.x, LOOP_X);
+          const dz = wrapDelta(vm.wz - state.player.z, LOOP_Z);
+          const vDrop = state.sphereWorldEnabled ? -((dx * dx + dz * dz) / (2.0 * state.sphereRadius)) : 0;
+          vm.mesh.position.set(state.player.x + dx, vDrop + 0.08 + Math.sin(tSec * 2.1 + i) * 0.05, state.player.z + dz);
           vm.mesh.rotation.z = Math.sin(tSec * 1.5 + i) * 0.035;
         }
 
-        // 4. Continuous Kerala Express Train (Always Running Around the Map!)
-        state.train.z += state.train.speed * dt;
-        if (state.train.z > 135) {
-          state.train.z = -175;
-        }
-        const trainDrop = getSphereDrop(-60.0, state.train.z);
-        trainGroup.position.set(-60.0, trainDrop, state.train.z);
+        // 4. Continuous Kerala Express Train (Loops 360° around the Ball!)
+        state.train.z = wrapWorldCoord(state.train.z + state.train.speed * dt, LOOP_Z);
+        const trainDx = wrapDelta(-60.0 - state.player.x, LOOP_X);
+        const trainDz = wrapDelta(state.train.z - state.player.z, LOOP_Z);
+        const trainRx = state.player.x + trainDx;
+        const trainRz = state.player.z + trainDz;
+        const trainDrop = state.sphereWorldEnabled ? -((trainDx * trainDx + trainDz * trainDz) / (2.0 * state.sphereRadius)) : 0;
+        trainGroup.position.set(trainRx, trainDrop, trainRz);
         if (state.sphereWorldEnabled) {
-          trainGroup.rotation.x = ((state.train.z - state.player.z) * invR) * 0.45;
-          trainGroup.rotation.z = -((-60.0 - state.player.x) * invR) * 0.45;
+          trainGroup.rotation.x = (trainDz * invR) * 0.25;
+          trainGroup.rotation.z = -(trainDx * invR) * 0.25;
         } else {
           trainGroup.rotation.x = 0;
           trainGroup.rotation.z = 0;
@@ -4576,40 +5605,37 @@
           trainWheels[w].rotation.x += state.train.speed * dt * 1.6;
         }
 
-        // 5. Continuous Autonomous KSRTC Fast Passenger Buses on Both Highways!
+        // 5. Continuous Autonomous KSRTC Fast Passenger Buses Looping 360° Around the Ball!
         // Bus 1: East-West Highway (z = 12.0)
-        state.bus.x += state.bus.speed * state.bus.dir * dt;
-        if (state.bus.x > 165) {
-          state.bus.dir = -1;
-          busGroup.rotation.y = Math.PI;
-        } else if (state.bus.x < -165) {
-          state.bus.dir = 1;
-          busGroup.rotation.y = 0;
-        }
-        const bus1Drop = getSphereDrop(state.bus.x, state.bus.z);
-        busGroup.position.set(state.bus.x, bus1Drop, state.bus.z);
+        state.bus.x = wrapWorldCoord(state.bus.x + state.bus.speed * state.bus.dir * dt, LOOP_X);
+        busGroup.rotation.y = state.bus.dir > 0 ? 0 : Math.PI;
+        const bus1Dx = wrapDelta(state.bus.x - state.player.x, LOOP_X);
+        const bus1Dz = wrapDelta(state.bus.z - state.player.z, LOOP_Z);
+        const bus1Rx = state.player.x + bus1Dx;
+        const bus1Rz = state.player.z + bus1Dz;
+        const bus1Drop = state.sphereWorldEnabled ? -((bus1Dx * bus1Dx + bus1Dz * bus1Dz) / (2.0 * state.sphereRadius)) : 0;
+        busGroup.position.set(bus1Rx, bus1Drop, bus1Rz);
         if (state.sphereWorldEnabled) {
-          busGroup.rotation.x = ((state.bus.z - state.player.z) * invR) * 0.45;
-          busGroup.rotation.z = -((state.bus.x - state.player.x) * invR) * 0.45;
+          busGroup.rotation.x = (bus1Dz * invR) * 0.25;
+          busGroup.rotation.z = -(bus1Dx * invR) * 0.25;
         } else {
           busGroup.rotation.x = 0;
           busGroup.rotation.z = 0;
         }
 
-        // Bus 2: North-South Highway (x = 0.0)
-        state.busNS.z += state.busNS.speed * state.busNS.dir * dt;
-        if (state.busNS.z > 92) {
-          state.busNS.dir = -1;
-          busNSGroup.rotation.y = Math.PI / 2;
-        } else if (state.busNS.z < -150) {
-          state.busNS.dir = 1;
-          busNSGroup.rotation.y = -Math.PI / 2;
-        }
-        const bus2Drop = getSphereDrop(state.busNS.x, state.busNS.z);
-        busNSGroup.position.set(state.busNS.x, bus2Drop, state.busNS.z);
+        // Bus 2: North-South Highway (x = 0.0, crosses bridges smoothly!)
+        state.busNS.z = wrapWorldCoord(state.busNS.z + state.busNS.speed * state.busNS.dir * dt, LOOP_Z);
+        busNSGroup.rotation.y = state.busNS.dir > 0 ? -Math.PI / 2 : Math.PI / 2;
+        const bus2Dx = wrapDelta(state.busNS.x - state.player.x, LOOP_X);
+        const bus2Dz = wrapDelta(state.busNS.z - state.player.z, LOOP_Z);
+        const bus2Rx = state.player.x + bus2Dx;
+        const bus2Rz = state.player.z + bus2Dz;
+        const bus2Elev = computeGroundElevation(state.busNS.x, state.busNS.z);
+        const bus2Drop = state.sphereWorldEnabled ? -((bus2Dx * bus2Dx + bus2Dz * bus2Dz) / (2.0 * state.sphereRadius)) : 0;
+        busNSGroup.position.set(bus2Rx, bus2Elev + bus2Drop, bus2Rz);
         if (state.sphereWorldEnabled) {
-          busNSGroup.rotation.x = ((state.busNS.z - state.player.z) * invR) * 0.45;
-          busNSGroup.rotation.z = -((state.busNS.x - state.player.x) * invR) * 0.45;
+          busNSGroup.rotation.x = (bus2Dz * invR) * 0.25;
+          busNSGroup.rotation.z = -(bus2Dx * invR) * 0.25;
         } else {
           busNSGroup.rotation.x = 0;
           busNSGroup.rotation.z = 0;
@@ -4628,17 +5654,12 @@
 
         // 6. Check KSRTC Bus & Express Train Collision -> "THERIKKUM" Ragdoll Launch!
         if (!state.activeMinigame && !state.inTrainCutscene && state.player.knockbackCooldown <= 0) {
-          // Check Bus 1 (East-West)
-          if (Math.abs(state.player.x - state.bus.x) < 4.5 && Math.abs(state.player.z - state.bus.z) < 2.15) {
-            triggerTherikkumAccident('KSRTC Bus', state.bus.x, state.bus.z, 1.0, false);
-          }
-          // Check Bus 2 (North-South)
-          else if (Math.abs(state.player.x - state.busNS.x) < 2.15 && Math.abs(state.player.z - state.busNS.z) < 4.5) {
-            triggerTherikkumAccident('KSRTC Fast Passenger', state.busNS.x, state.busNS.z, 1.0, false);
-          }
-          // Check Continuous Kerala Express Train (3 coaches = total half-length ~19.2m)
-          else if (Math.abs(state.player.x - (-60.0)) < 2.55 && Math.abs(state.player.z - state.train.z) < 19.2) {
-            triggerTherikkumAccident('Kerala Express Train', -60.0, state.train.z, 1.22, true);
+          if (Math.abs(bus1Dx) < 4.5 && Math.abs(bus1Dz) < 2.15) {
+            triggerTherikkumAccident('KSRTC Bus', bus1Rx, bus1Rz, 1.0, false);
+          } else if (Math.abs(bus2Dx) < 2.15 && Math.abs(bus2Dz) < 4.5) {
+            triggerTherikkumAccident('KSRTC Fast Passenger', bus2Rx, bus2Rz, 1.0, false);
+          } else if (Math.abs(trainDx) < 2.55 && Math.abs(trainDz) < 19.2) {
+            triggerTherikkumAccident('Kerala Express Train', trainRx, trainRz, 1.22, true);
           }
         }
 
@@ -4658,8 +5679,10 @@
               state.player.x = resolved.x;
               state.player.z = resolved.z;
             }
-            state.player.x = Math.max(-118, Math.min(118, state.player.x));
-            state.player.z = Math.max(-108, Math.min(102, state.player.z));
+            if (state.player.x > LOOP_X * 0.5) { state.player.x -= LOOP_X; state.cam.currentX -= LOOP_X; }
+            else if (state.player.x < -LOOP_X * 0.5) { state.player.x += LOOP_X; state.cam.currentX += LOOP_X; }
+            if (state.player.z > LOOP_Z * 0.5) { state.player.z -= LOOP_Z; state.cam.currentZ -= LOOP_Z; }
+            else if (state.player.z < -LOOP_Z * 0.5) { state.player.z += LOOP_Z; state.cam.currentZ += LOOP_Z; }
 
             const groundY = computeGroundElevation(state.player.x, state.player.z);
             state.player.y += state.player.vy * dt;
@@ -4695,8 +5718,117 @@
               playerCharacter.rotation.x = 0;
               playerCharacter.rotation.z = 0;
             }
+          } else if (state.drivingCar) {
+            // REALISTIC ACKERMANN CAR & BIKE DRIVING PHYSICS:
+            // Cannot spin in place! Vehicle accelerates forward/reverse along its heading and turns gradually as it moves!
+            playerCharacter.rotation.x = 0;
+            playerCharacter.rotation.z = 0;
+
+            const spec = getActiveVehicleSpec();
+            let throttleInput = 0;
+            let steerInput = 0;
+
+            if (state.keys.w || state.keys.up) throttleInput += 1;
+            if (state.keys.s || state.keys.down) throttleInput -= 1;
+            if (state.keys.a || state.keys.left) steerInput += 1;
+            if (state.keys.d || state.keys.right) steerInput -= 1;
+
+            if (state.joystick.active) {
+              throttleInput += -state.joystick.dy;
+              steerInput += -state.joystick.dx;
+            }
+
+            throttleInput = Math.max(-1, Math.min(1, throttleInput));
+            steerInput = Math.max(-1, Math.min(1, steerInput));
+
+            // Smooth front-wheel steering angle (max ~28 degrees)
+            const targetSteer = steerInput * 0.48;
+            state.vehicle.steerAngle += (targetSteer - state.vehicle.steerAngle) * Math.min(1, dt * 10);
+
+            // Engine Acceleration, Braking & Natural Rolling Drag
+            if (Math.abs(throttleInput) > 0.05) {
+              if (throttleInput > 0) {
+                const accelRate = state.vehicle.forwardSpeed < 0 ? spec.accel * 2.2 : spec.accel;
+                state.vehicle.forwardSpeed = Math.min(spec.maxSpeed, state.vehicle.forwardSpeed + throttleInput * accelRate * dt);
+              } else {
+                const brakeRate = state.vehicle.forwardSpeed > 0 ? spec.accel * 2.4 : spec.accel * 0.85;
+                state.vehicle.forwardSpeed = Math.max(-spec.maxSpeed * 0.38, state.vehicle.forwardSpeed + throttleInput * brakeRate * dt);
+              }
+            } else {
+              state.vehicle.forwardSpeed *= Math.pow(0.14, dt);
+              if (Math.abs(state.vehicle.forwardSpeed) < 0.08) state.vehicle.forwardSpeed = 0;
+            }
+
+            // Gradual speed-dependent turning (Ackermann bicycle model: zero turn rate when stopped!)
+            const speedFactor = state.vehicle.forwardSpeed / spec.maxSpeed;
+            if (Math.abs(state.vehicle.forwardSpeed) > 0.15) {
+              const turnDelta = state.vehicle.steerAngle * spec.turnRate * speedFactor * dt * 1.85;
+              state.vehicle.yaw += turnDelta;
+              // Gently follow behind vehicle heading with camera
+              state.cam.yaw = lerpAngle(state.cam.yaw, state.vehicle.yaw + Math.PI, Math.min(1, dt * 2.6));
+            }
+
+            state.player.facingYaw = state.vehicle.yaw;
+            state.player.vx = Math.sin(state.vehicle.yaw) * state.vehicle.forwardSpeed;
+            state.player.vz = Math.cos(state.vehicle.yaw) * state.vehicle.forwardSpeed;
+
+            if (Math.abs(state.vehicle.forwardSpeed) > 0.02) {
+              let nextX = state.player.x + state.player.vx * dt;
+              let nextZ = state.player.z + state.player.vz * dt;
+              const resolved = resolveSolidWorldCollisions(nextX, nextZ);
+              if (Math.hypot(resolved.x - nextX, resolved.z - nextZ) > 0.05) {
+                state.vehicle.forwardSpeed *= 0.55; // Slow down on obstacle scrape
+              }
+              nextX = resolved.x;
+              nextZ = resolved.z;
+
+              if (!isPointInWater(nextX, nextZ, true)) {
+                state.player.x = nextX;
+                state.player.z = nextZ;
+              } else {
+                state.vehicle.forwardSpeed = 0;
+              }
+
+              // Seamless 360° Ball World Loop
+              if (state.player.x > LOOP_X * 0.5) { state.player.x -= LOOP_X; state.cam.currentX -= LOOP_X; }
+              else if (state.player.x < -LOOP_X * 0.5) { state.player.x += LOOP_X; state.cam.currentX += LOOP_X; }
+              if (state.player.z > LOOP_Z * 0.5) { state.player.z -= LOOP_Z; state.cam.currentZ -= LOOP_Z; }
+              else if (state.player.z < -LOOP_Z * 0.5) { state.player.z += LOOP_Z; state.cam.currentZ += LOOP_Z; }
+              state.player.y = computeGroundElevation(state.player.x, state.player.z);
+            }
+
+            // Animate Vehicle Wheels, Front Steering Pivots & Bike Cornering Lean
+            const vData = carGroup.userData;
+            if (vData) {
+              if (vData.frontPivots) {
+                for (let p = 0; p < vData.frontPivots.length; p++) {
+                  vData.frontPivots[p].rotation.y = state.vehicle.steerAngle * 0.85;
+                }
+              }
+              if (vData.spinningWheels) {
+                for (let w = 0; w < vData.spinningWheels.length; w++) {
+                  vData.spinningWheels[w].rotation.x += state.vehicle.forwardSpeed * dt * 2.4;
+                }
+              }
+              if (vData.bodyTiltGroup) {
+                const targetLean = vData.isBike
+                  ? -state.vehicle.steerAngle * Math.abs(speedFactor) * 0.55
+                  : state.vehicle.steerAngle * Math.abs(speedFactor) * 0.08;
+                state.vehicle.leanAngle += (targetLean - state.vehicle.leanAngle) * Math.min(1, dt * 10);
+                vData.bodyTiltGroup.rotation.z = state.vehicle.leanAngle;
+              }
+            }
+
+            carGroup.position.set(state.player.x, state.player.y, state.player.z);
+            carGroup.rotation.y = state.vehicle.yaw;
+
+            // Seat player inside car or on top of bike saddle
+            const seatOffsetY = (vData && vData.isBike) ? 0.25 : 0.05;
+            playerCharacter.position.set(state.player.x, state.player.y + seatOffsetY, state.player.z);
+            playerCharacter.rotation.y = state.vehicle.yaw;
+            playerCharacter.rotation.z = state.vehicle.leanAngle;
           } else {
-            // Normal Ground Movement & Solid Collision Resolution
+            // Normal On-Foot Ground Movement & Solid Collision Resolution
             playerCharacter.rotation.x = 0;
             playerCharacter.rotation.z = 0;
 
@@ -4748,13 +5880,13 @@
               nextX = resolved.x;
               nextZ = resolved.z;
 
-              if (!isPointInWater(nextX, nextZ, state.drivingCar)) {
+              if (!isPointInWater(nextX, nextZ, false)) {
                 state.player.x = nextX;
                 state.player.z = nextZ;
-              } else if (!isPointInWater(nextX, state.player.z, state.drivingCar)) {
+              } else if (!isPointInWater(nextX, state.player.z, false)) {
                 state.player.x = nextX;
                 state.player.vz = 0;
-              } else if (!isPointInWater(state.player.x, nextZ, state.drivingCar)) {
+              } else if (!isPointInWater(state.player.x, nextZ, false)) {
                 state.player.z = nextZ;
                 state.player.vx = 0;
               } else {
@@ -4762,25 +5894,31 @@
                 state.player.vz = 0;
               }
 
-              state.player.x = Math.max(-118, Math.min(118, state.player.x));
-              state.player.z = Math.max(-108, Math.min(102, state.player.z));
+              // Seamless 360° Spherical Globe Loop (No invisible walls or borders!)
+              if (state.player.x > LOOP_X * 0.5) { state.player.x -= LOOP_X; state.cam.currentX -= LOOP_X; }
+              else if (state.player.x < -LOOP_X * 0.5) { state.player.x += LOOP_X; state.cam.currentX += LOOP_X; }
+              if (state.player.z > LOOP_Z * 0.5) { state.player.z -= LOOP_Z; state.cam.currentZ -= LOOP_Z; }
+              else if (state.player.z < -LOOP_Z * 0.5) { state.player.z += LOOP_Z; state.cam.currentZ += LOOP_Z; }
               state.player.y = computeGroundElevation(state.player.x, state.player.z);
               state.player.walkCycle += dt * speedMag * 1.35;
             }
 
             const stride = Math.min(1, speedMag / 8.0);
             const swing = Math.sin(state.player.walkCycle) * 0.65 * stride;
-            const bounce = state.drivingCar ? 0 : Math.abs(Math.cos(state.player.walkCycle)) * 0.05 * stride;
+            const bounce = Math.abs(Math.cos(state.player.walkCycle)) * 0.05 * stride;
 
             playerCharacter.position.set(state.player.x, state.player.y + bounce, state.player.z);
             playerCharacter.rotation.y = state.player.facingYaw;
 
-            if (state.drivingCar) {
-              carGroup.position.set(state.player.x, state.player.y, state.player.z);
-              carGroup.rotation.y = state.player.facingYaw;
-            } else {
-              const carDrop = getSphereDrop(carGroup.position.x, carGroup.position.z);
-              carGroup.position.y = computeGroundElevation(carGroup.position.x, carGroup.position.z) + carDrop;
+            if (carGroup.visible) {
+              const cDx = wrapDelta(state.vehicle.x - state.player.x, LOOP_X);
+              const cDz = wrapDelta(state.vehicle.z - state.player.z, LOOP_Z);
+              const cDrop = state.sphereWorldEnabled ? -((cDx * cDx + cDz * cDz) / (2.0 * state.sphereRadius)) : 0;
+              carGroup.position.set(
+                state.player.x + cDx,
+                computeGroundElevation(state.vehicle.x, state.vehicle.z) + cDrop,
+                state.player.z + cDz
+              );
             }
 
             if (limbs && limbs.leftLeg) {
@@ -4824,10 +5962,10 @@
 
         // 9. Spring-Arm Camera (with Train Cutscene & "Therikkum" Accident Shake)
         const horizDist = state.cam.distance * Math.cos(state.cam.pitch);
-        const vertOffset = 1.6 + state.cam.distance * Math.sin(state.cam.pitch);
+        const vertOffset = 2.1 + state.cam.distance * Math.sin(state.cam.pitch);
         const desiredCamX = state.player.x - Math.sin(state.cam.yaw) * horizDist;
         const desiredCamZ = state.player.z - Math.cos(state.cam.yaw) * horizDist;
-        const desiredCamY = Math.max(1.4, vertOffset);
+        const desiredCamY = Math.max(1.35, vertOffset);
 
         const camLerp = Math.min(1, dt * 14);
         state.cam.currentX += (desiredCamX - state.cam.currentX) * camLerp;
@@ -4836,9 +5974,9 @@
 
         const shakeOffset = state.cameraShake > 0 ? (Math.random() - 0.5) * state.cameraShake : 0;
         camera.position.set(state.cam.currentX + shakeOffset, state.cam.currentY + shakeOffset, state.cam.currentZ);
-        camera.lookAt(state.player.x, Math.min(4.5, state.player.y * 0.35) + 1.2, state.player.z);
+        camera.lookAt(state.player.x, Math.min(4.5, state.player.y * 0.35) + 2.48, state.player.z);
 
-        // 10. Walk-Over Collectibles (Curved onto the Spherical Surface + Gentle Bobbing)
+        // 10. Sparkling 3D Gem Collectibles (Curved onto the Looping Globe + Spinning Crystal)
         for (let i = 0; i < collectibleItems.length; i++) {
           const item = collectibleItems[i];
           if (item.collected) {
@@ -4849,28 +5987,39 @@
             }
             continue;
           }
-          const cDrop = getSphereDrop(item.wx, item.wz);
-          item.mesh.position.y = 0.48 + Math.sin(tSec * 2.5 + i) * 0.08 + cDrop;
+          const dx = wrapDelta(item.wx - state.player.x, LOOP_X);
+          const dz = wrapDelta(item.wz - state.player.z, LOOP_Z);
+          const cDrop = state.sphereWorldEnabled ? -((dx * dx + dz * dz) / (2.0 * state.sphereRadius)) : 0;
+          item.mesh.position.set(
+            state.player.x + dx,
+            0.72 + Math.sin(tSec * 2.8 + i) * 0.12 + cDrop,
+            state.player.z + dz
+          );
+          if (item.gemCrystal) {
+            item.gemCrystal.rotation.y = tSec * 2.2 + i;
+          }
 
-          const dist = Math.hypot(state.player.x - item.wx, state.player.z - item.wz);
-          if (dist < 2.3) {
+          const dist = Math.hypot(dx, dz);
+          if (dist < 2.35) {
             item.collected = true;
-            item.respawnAt = now + 16000;
+            item.respawnAt = now + 180000;
             item.mesh.visible = false;
             item.el.style.display = 'none';
             addPoints(item.pts);
             soundEngine.playCollectChime();
-            soundEngine.speakMalayalam(item.voice, '✨ പോയിന്റ് ലഭിച്ചു');
+            soundEngine.speakMalayalam(item.voice, `💎 +${item.pts} Gems`);
           }
         }
 
-        // 11. Landmark Proximity & GPU-Accelerated Floating Cream Dialog Card
+        // 11. Landmark Proximity & GPU-Accelerated Floating Cream Dialog Card (Wrapped on Globe)
         let closest = null;
         let minDist = Infinity;
         for (let i = 0; i < landmarks.length; i++) {
           const lm = landmarks[i];
           if (state.drivingCar && lm.id === 'car_spot') continue;
-          const d = Math.hypot(state.player.x - lm.x, state.player.z - lm.z);
+          const dx = wrapDelta(lm.x - state.player.x, LOOP_X);
+          const dz = wrapDelta(lm.z - state.player.z, LOOP_Z);
+          const d = Math.hypot(dx, dz);
           if (d < lm.radius && d < minDist) {
             minDist = d;
             closest = lm;
@@ -4895,8 +6044,10 @@
             }
           }
 
-          const lmDrop = getSphereDrop(closest.x, closest.z);
-          projVec.set(closest.x, 2.8 + lmDrop, closest.z);
+          const lmWx = state.player.x + wrapDelta(closest.x - state.player.x, LOOP_X);
+          const lmWz = state.player.z + wrapDelta(closest.z - state.player.z, LOOP_Z);
+          const lmDrop = getSphereDrop(lmWx, lmWz);
+          projVec.set(lmWx, 2.8 + lmDrop, lmWz);
           projVec.project(camera);
           if (projVec.z < 1) {
             const sx = (projVec.x * 0.5 + 0.5) * window.innerWidth;
@@ -4909,7 +6060,7 @@
           state.nearLandmark = null;
           state.dismissedLandmarkId = null;
           promptWrap.classList.add('hidden');
-          if (whereNextText) whereNextText.textContent = 'Collect anything with a number';
+          if (whereNextText) whereNextText.textContent = 'Play Mini-Games to earn 💎 Gems';
         }
 
         // 12. GPU-Accelerated `translate3d` Label Projection
