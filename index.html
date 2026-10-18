@@ -4034,48 +4034,71 @@ function initOnlineNetworking() {
   setupPeerJSLobby();
 }
 
+function getActiveRoomKey() {
+  const code = (state.roomCode || (state.currentRoom && state.currentRoom.code) || 'KL-904');
+  return 'kp_village_' + String(code).replace(/[^a-zA-Z0-9]/g, '');
+}
+
 function setupPeerJSLobby() {
   if (typeof Peer === 'undefined') {
     console.warn("PeerJS library not detected in head.");
     return;
   }
 
-  const roomKey = 'kp_village_' + (state.roomCode || 'KL-904').replace(/[^a-zA-Z0-9]/g, '');
+  const roomKey = getActiveRoomKey();
+  console.log("Attempting connection to room:", roomKey);
 
+  // 1. Try to register as Room Host
   globalPeer = new Peer(roomKey);
 
   globalPeer.on('open', (id) => {
-    console.log("Registered as Room Host:", id);
+    console.log("Registered as Room Host on internet:", id);
   });
 
+  // When a guest joins our room:
   globalPeer.on('connection', (conn) => {
+    console.log("A guest player connected to this host!");
     attachPeerEvents(conn);
   });
 
   globalPeer.on('error', (err) => {
+    // If Host exists, become Guest and connect to Host
     if (err.type === 'unavailable-id') {
-      console.log("Host already active. Joining as guest...");
+      console.log("Room Host active. Connecting as guest...");
       globalPeer = new Peer();
       globalPeer.on('open', () => {
         const conn = globalPeer.connect(roomKey, { reliable: true });
         attachPeerEvents(conn);
       });
     } else {
-      console.warn("PeerJS status:", err);
+      console.warn("PeerJS note:", err);
     }
   });
 }
 
 function attachPeerEvents(conn) {
   conn.on('open', () => {
+    console.log("Cross-device data link established!");
     if (!activePeerConns.includes(conn)) {
       activePeerConns.push(conn);
     }
-    broadcastPacket({
+    // Instantly transmit presence & location to the other player
+    const greeting = {
       type: 'join',
       peerId: state.peerId,
-      name: state.playerName
-    });
+      name: state.playerName,
+      gender: state.playerGender,
+      district: state.playerDistrict,
+      outfitId: state.outfitId,
+      primaryColor: state.primaryColor,
+      secondaryColor: state.secondaryColor,
+      borderColor: state.borderColor,
+      x: Number(state.player.x.toFixed(2)),
+      y: Number(state.player.y.toFixed(2)),
+      z: Number(state.player.z.toFixed(2)),
+      yaw: Number(state.player.facingYaw.toFixed(2))
+    };
+    try { conn.send(greeting); } catch (e) {}
   });
 
   conn.on('data', (data) => {
