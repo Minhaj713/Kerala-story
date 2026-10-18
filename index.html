@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>Kanalppuzha (കനാൽപ്പുഴ) — Little Kerala Online 3D World</title>
@@ -3956,63 +3957,138 @@
         updateOnlineCountUI();
       }
 
-      function broadcastPacket(pkt) {
-        const payload = Object.assign({
-          peerId: state.peerId,
-          room: state.roomCode,
-          name: state.playerName,
-          gender: state.playerGender,
-          district: state.playerDistrict,
-          primaryColor: state.primaryColor,
-          secondaryColor: state.secondaryColor,
-          borderColor: state.borderColor
-        }, pkt);
+      // --- PEERJS GLOBAL INTERNET RELAY ---
+let globalPeer = null;
+let activePeerConns = [];
 
-        const json = JSON.stringify(payload);
-        if (bcChannel) {
-          try { bcChannel.postMessage(payload); } catch (e) {}
-        }
-        try {
-          localStorage.setItem('kanalppuzha_net_pkt', json + '#' + Math.random());
-        } catch (e) {}
+function broadcastPacket(pkt) {
+  const payload = Object.assign({
+    peerId: state.peerId,
+    room: state.roomCode || 'KL-904',
+    name: state.playerName,
+    gender: state.playerGender,
+    district: state.playerDistrict,
+    primaryColor: state.primaryColor,
+    secondaryColor: state.secondaryColor,
+    borderColor: state.borderColor
+  }, pkt);
+
+  const json = JSON.stringify(payload);
+
+  // 1. Send locally between tabs on the same device
+  if (bcChannel) {
+    try { bcChannel.postMessage(payload); } catch (e) {}
+  }
+  try {
+    localStorage.setItem('kanalppuzha_net_pkt', json + '#' + Math.random());
+  } catch (e) {}
+
+  // 2. Send over the internet to connected phones and laptops
+  for (let i = activePeerConns.length - 1; i >= 0; i--) {
+    const conn = activePeerConns[i];
+    if (conn && conn.open) {
+      try { conn.send(payload); } catch (err) {}
+    } else {
+      activePeerConns.splice(i, 1);
+    }
+  }
+}
+
+function initOnlineNetworking() {
+  if ('BroadcastChannel' in window) {
+    bcChannel = new BroadcastChannel('kanalppuzha_online_v2');
+    bcChannel.onmessage = (ev) => handleIncomingNetworkPacket(ev.data);
+  }
+  window.addEventListener('storage', (ev) => {
+    if (ev.key === 'kanalppuzha_net_pkt' && ev.newValue) {
+      try {
+        const raw = ev.newValue.split('#')[0];
+        handleIncomingNetworkPacket(JSON.parse(raw));
+      } catch (e) {}
+    }
+  });
+
+  window.addEventListener('beforeunload', () => {
+    broadcastPacket({ type: 'leave', peerId: state.peerId });
+    if (globalPeer) try { globalPeer.destroy(); } catch(e) {}
+  });
+
+  setInterval(() => {
+    if (!state.started) return;
+    broadcastPacket({
+      type: 'state',
+      x: Number(state.player.x.toFixed(2)),
+      y: Number(state.player.y.toFixed(2)),
+      z: Number(state.player.z.toFixed(2)),
+      yaw: Number(state.player.facingYaw.toFixed(2))
+    });
+
+    const now = performance.now();
+    remotePlayers.forEach((rp, id) => {
+      if (now - rp.lastSeen > 8000) {
+        removeRemotePlayer(id);
       }
+    });
+  }, 160);
 
-      function initOnlineNetworking() {
-        if ('BroadcastChannel' in window) {
-          bcChannel = new BroadcastChannel('kanalppuzha_online_v2');
-          bcChannel.onmessage = (ev) => handleIncomingNetworkPacket(ev.data);
-        }
-        window.addEventListener('storage', (ev) => {
-          if (ev.key === 'kanalppuzha_net_pkt' && ev.newValue) {
-            try {
-              const raw = ev.newValue.split('#')[0];
-              handleIncomingNetworkPacket(JSON.parse(raw));
-            } catch (e) {}
-          }
-        });
-        window.addEventListener('beforeunload', () => {
-          broadcastPacket({ type: 'leave' });
-        });
+  setupPeerJSLobby();
+}
 
-        setInterval(() => {
-          if (!state.started) return;
-          broadcastPacket({
-            type: 'state',
-            x: Number(state.player.x.toFixed(2)),
-            y: Number(state.player.y.toFixed(2)),
-            z: Number(state.player.z.toFixed(2)),
-            yaw: Number(state.player.facingYaw.toFixed(2))
-          });
+function setupPeerJSLobby() {
+  if (typeof Peer === 'undefined') {
+    console.warn("PeerJS library not detected in head.");
+    return;
+  }
 
-          const now = performance.now();
-          remotePlayers.forEach((rp, id) => {
-            if (now - rp.lastSeen > 8000) {
-              removeRemotePlayer(id);
-            }
-          });
-        }, 160);
-      }
-      initOnlineNetworking();
+  const roomKey = 'kp_village_' + (state.roomCode || 'KL-904').replace(/[^a-zA-Z0-9]/g, '');
+
+  globalPeer = new Peer(roomKey);
+
+  globalPeer.on('open', (id) => {
+    console.log("Registered as Room Host:", id);
+  });
+
+  globalPeer.on('connection', (conn) => {
+    attachPeerEvents(conn);
+  });
+
+  globalPeer.on('error', (err) => {
+    if (err.type === 'unavailable-id') {
+      console.log("Host already active. Joining as guest...");
+      globalPeer = new Peer();
+      globalPeer.on('open', () => {
+        const conn = globalPeer.connect(roomKey, { reliable: true });
+        attachPeerEvents(conn);
+      });
+    } else {
+      console.warn("PeerJS status:", err);
+    }
+  });
+}
+
+function attachPeerEvents(conn) {
+  conn.on('open', () => {
+    if (!activePeerConns.includes(conn)) {
+      activePeerConns.push(conn);
+    }
+    broadcastPacket({
+      type: 'join',
+      peerId: state.peerId,
+      name: state.playerName
+    });
+  });
+
+  conn.on('data', (data) => {
+    handleIncomingNetworkPacket(data);
+  });
+
+  conn.on('close', () => {
+    const idx = activePeerConns.indexOf(conn);
+    if (idx !== -1) activePeerConns.splice(idx, 1);
+  });
+}
+
+initOnlineNetworking();
 
       function sendChatMessage(text) {
         const clean = (text || '').trim();
