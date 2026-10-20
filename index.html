@@ -11358,7 +11358,7 @@
     })();
   </script>
   <!-- Firebase SDKs and Google Auth Integration -->
- <script type="module">
+<script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
@@ -11378,42 +11378,24 @@
         const auth = getAuth(app);
         const provider = new GoogleAuthProvider();
 
-        // Force-ensure the Google login container on the splash screen is visible and styled properly
-        window.addEventListener('DOMContentLoaded', () => {
-            const googleBar = document.getElementById('btn-google-signup')?.closest('div.mb-3.5') || document.querySelector('#splash-screen div');
-            if (googleBar) {
-                googleBar.style.display = 'flex';
-                googleBar.style.visibility = 'visible';
-            }
-        });
-
-        // Handle Google Signup Button Click
-        const bindGoogleButton = () => {
-            const googleSignupBtn = document.getElementById('btn-google-signup');
-            if (googleSignupBtn) {
-                googleSignupBtn.style.display = 'inline-flex';
-                googleSignupBtn.style.visibility = 'visible';
-                googleSignupBtn.onclick = (e) => {
-                    e.preventDefault();
-                    signInWithPopup(auth, provider)
-                        .then((result) => {
-                            const user = result.user;
-                            console.log("Logged in as:", user.displayName);
-                            const titleEl = document.getElementById('splash-google-title');
-                            const subEl = document.getElementById('splash-google-sub');
-                            if (titleEl) titleEl.textContent = `Welcome, ${user.displayName}!`;
-                            if (subEl) subEl.textContent = `Signed in as ${user.email}`;
-                        })
-                        .catch((error) => {
-                            console.error("Login Error:", error.message);
-                            alert("Login Error: " + error.message);
-                        });
-                };
-            }
-        };
-
-        setTimeout(bindGoogleButton, 500);
-        setInterval(bindGoogleButton, 2000);
+        // Handle Google Signup Button Click safely without messing up layout
+        const googleSignupBtn = document.getElementById('btn-google-signup');
+        if (googleSignupBtn) {
+            googleSignupBtn.addEventListener('click', () => {
+                signInWithPopup(auth, provider)
+                    .then((result) => {
+                        const user = result.user;
+                        console.log("Logged in as:", user.displayName);
+                        const titleEl = document.getElementById('splash-google-title');
+                        const subEl = document.getElementById('splash-google-sub');
+                        if (titleEl) titleEl.textContent = `Welcome, ${user.displayName}!`;
+                        if (subEl) subEl.textContent = `Signed in as ${user.email}`;
+                    })
+                    .catch((error) => {
+                        console.error("Login Error:", error.message);
+                    });
+            });
+        }
 
         // Track Auth State Changes
         onAuthStateChanged(auth, (user) => {
