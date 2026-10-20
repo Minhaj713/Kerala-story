@@ -11380,7 +11380,6 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
-        // Your web app's Firebase configuration
         const firebaseConfig = {
           apiKey: "AIzaSyBqSxZuRNV6bWiJNZSwTs30tb-elV13LDs",
           authDomain: "kerala-story-19860.firebaseapp.com",
@@ -11391,36 +11390,68 @@
           measurementId: "G-K9P888GQM8"
         };
 
-        // Initialize Firebase
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const provider = new GoogleAuthProvider();
 
-        // Handle Google Signup Button Click safely without messing up layout
-        const googleSignupBtn = document.getElementById('btn-google-signup');
-        if (googleSignupBtn) {
-            googleSignupBtn.addEventListener('click', () => {
-                signInWithPopup(auth, provider)
-                    .then((result) => {
-                        const user = result.user;
-                        console.log("Logged in as:", user.displayName);
-                        const titleEl = document.getElementById('splash-google-title');
-                        const subEl = document.getElementById('splash-google-sub');
-                        if (titleEl) titleEl.textContent = `Welcome, ${user.displayName}!`;
-                        if (subEl) subEl.textContent = `Signed in as ${user.email}`;
-                    })
-                    .catch((error) => {
-                        console.error("Login Error:", error.message);
-                    });
-            });
+        function setupAuthHandler() {
+            const btn = document.getElementById('btn-real-google-login');
+            if (!btn) return;
+
+            btn.onclick = async (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+
+                if (auth.currentUser) {
+                    await signOut(auth);
+                    return;
+                }
+
+                try {
+                    btn.style.opacity = '0.6';
+                    btn.disabled = true;
+                    const result = await signInWithPopup(auth, provider);
+                    console.log("Logged in user:", result.user);
+                } catch (err) {
+                    console.error("Firebase Sign-In Error:", err);
+                    alert("Sign-In Notice: " + (err.code || err.message));
+                } finally {
+                    btn.style.opacity = '1';
+                    btn.disabled = false;
+                }
+            };
         }
 
-        // Track Auth State Changes
+        setupAuthHandler();
+        window.addEventListener('DOMContentLoaded', setupAuthHandler);
+        setTimeout(setupAuthHandler, 800);
+
         onAuthStateChanged(auth, (user) => {
+            const userLabel = document.getElementById('google-user-label');
+            const userSub = document.getElementById('google-user-sub');
+            const btnText = document.getElementById('btn-real-google-text');
+            const nameInput = document.getElementById('input-player-name');
+            const avatarBadge = document.getElementById('google-avatar-badge');
+
             if (user) {
-                console.log("User is signed in:", user.displayName);
+                if (userLabel) userLabel.textContent = user.displayName || "Logged In";
+                if (userSub) userSub.textContent = user.email || "";
+                if (btnText) btnText.textContent = "Sign Out";
+                if (nameInput && !nameInput.value) {
+                    nameInput.value = (user.displayName || "").split(" ")[0];
+                }
+                if (avatarBadge) {
+                    if (user.photoURL) {
+                        avatarBadge.innerHTML = `<img src="${user.photoURL}" style="width:100%;height:100%;border-radius:50%;object-fit:cover;">`;
+                    } else {
+                        avatarBadge.textContent = (user.displayName || "U").charAt(0).toUpperCase();
+                    }
+                }
             } else {
-                console.log("User is signed out");
+                if (userLabel) userLabel.textContent = "Sign in with Google";
+                if (userSub) userSub.textContent = "Save gems, district, outfits & progress";
+                if (btnText) btnText.textContent = "Sign In";
+                if (avatarBadge) avatarBadge.textContent = "G";
             }
         });
     </script>
