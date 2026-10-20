@@ -11357,5 +11357,55 @@
       };
     })();
   </script>
+  <!-- Firebase SDKs and Google Auth Integration -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
+        // Your exact Firebase configuration
+        const firebaseConfig = {
+          apiKey: "AIzaSyBqSxZuRNV6bWiJNZSwTs30tb-elV13LDs",
+          authDomain: "kerala-story-19860.firebaseapp.com",
+          projectId: "kerala-story-19860",
+          storageBucket: "kerala-story-19860.firebasestorage.app",
+          messagingSenderId: "204484028625",
+          appId: "1:204484028625:web:f291eebd2f4e237f377df0",
+          measurementId: "G-K9P888GQM8"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const provider = new GoogleAuthProvider();
+
+        // Connect the Google Signup button in your splash screen
+        const googleSignupBtn = document.getElementById('btn-google-signup');
+        if (googleSignupBtn) {
+            googleSignupBtn.addEventListener('click', () => {
+                signInWithPopup(auth, provider)
+                    .then((result) => {
+                        const user = result.user;
+                        console.log("Logged in as:", user.displayName);
+                        // Update UI with user info
+                        const titleEl = document.getElementById('splash-google-title');
+                        const subEl = document.getElementById('splash-google-sub');
+                        if (titleEl) titleEl.textContent = `Welcome, ${user.displayName}!`;
+                        if (subEl) subEl.textContent = `Signed in as ${user.email}`;
+                    })
+                    .catch((error) => {
+                        console.error("Login Error:", error.message);
+                    });
+            });
+        }
+
+        // Track Auth State changes
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                console.log("User is signed in:", user.displayName);
+            } else {
+                console.log("User is signed out");
+            }
+        });
+    </script>
 </body>
 </html>
