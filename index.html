@@ -11407,5 +11407,36 @@
             }
         });
     </script>
+  <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getAuth, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+          apiKey: "AIzaSyBqSxZuRNV6bWiJNZSwTs30tb-elV13LDs",
+          authDomain: "kerala-story-19860.firebaseapp.com",
+          projectId: "kerala-story-19860",
+          storageBucket: "kerala-story-19860.firebasestorage.app",
+          messagingSenderId: "204484028625",
+          appId: "1:204484028625:web:f291eebd2f4e237f377df0",
+          measurementId: "G-K9P888GQM8"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const provider = new GoogleAuthProvider();
+
+        const btn = document.getElementById('btn-google-signup');
+        if (btn) {
+            btn.addEventListener('click', () => {
+                signInWithPopup(auth, provider).then(res => {
+                    console.log("Logged in:", res.user.displayName);
+                    const titleEl = document.getElementById('splash-google-title');
+                    if (titleEl) titleEl.textContent = `Welcome, ${res.user.displayName}!`;
+                }).catch(err => console.error(err));
+            });
+        }
+    </script>
 </body>
 </html>
